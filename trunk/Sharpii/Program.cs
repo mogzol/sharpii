@@ -85,6 +85,12 @@ namespace Sharpii
                 Environment.Exit(0);
             }
 
+            if (Function.ToUpper() == "NUS" || Function.ToUpper() == "NUSD")
+            {
+                NUS_Stuff.NUS(args);
+                Environment.Exit(0);
+            }
+
             if (Function.ToUpper() == "SENDDOL" || Function.ToUpper() == "SENDOL")
             {
                 HBC_Stuff.SendDol(args);
@@ -117,6 +123,7 @@ namespace Sharpii
             System.Console.WriteLine("       TPL            Convert a image to a tpl, or vice versa");
             System.Console.WriteLine("       U8             Pack/Unpack a U8 archive");
             System.Console.WriteLine("       IOS            Apply various patches to an IOS");
+            System.Console.WriteLine("       NUSD           Download files from NUS");
             System.Console.WriteLine("       SendDol        Send a dol to the HBC over wifi");
             System.Console.WriteLine("");
             System.Console.WriteLine("       NOTE: Too see more detailed descriptions of any of the above,");
@@ -142,5 +149,5 @@ namespace Sharpii
     }
     public class Version
     {
-        public static string version = "1.0";
+        public static string version = "1.1";
     }

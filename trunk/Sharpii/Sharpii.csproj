@@ -60,6 +60,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NUSD.cs" />
     <Compile Include="HBC.cs" />
     <Compile Include="IOS.cs" />
     <Compile Include="U8.cs" />
