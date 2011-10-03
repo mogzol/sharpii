@@ -1,9 +1,9 @@
-/----------------------------------------------------->
-                       Sharpii 1.0
-             <------------------------------>
-                An app by person66
-        Using libWiiSharp.dll by leathl
-/----------------------------------------------------->
+/------------------------------------------------------------------------------>
+                                  Sharpii 1.2
+       <---------------------------------------------------------------->
+                               An app by person66
+                 libWiiSharp.dll by leathl (mod by scooby74029)                         
+/------------------------------------------------------------------------------>
 
 
 
@@ -45,8 +45,8 @@ The source for Sharpii is available at: sharpii.googlecode.com
 /----CREDITS
 /------------------------------>
 
-Sharpii uses libWiiSharp.dll by leathl, and borrows some code from some of 
-the examples included with libWiiSharp.
+Sharpii uses scooby74029's mod of libWiiSharp.dll by leathl, and 
+it borrows some code from some of the examples included with libWiiSharp.
 
 libWiiSharp can be found at: libwiisharp.googlecode.com
 
@@ -65,5 +65,11 @@ See "LICENSE.txt" for more information.
 /----CHANGELOG
 /------------------------------>
 
+1.2
+  - Added version patch support for IOS patching
+  - Switched to scooby74029's mod of libWiiSharp 
+  - Bug fixes
+1.1
+  - Added support for NUS downloading
 1.0
-   - Initial release
+  - Initial release
