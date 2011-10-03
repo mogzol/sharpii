@@ -28,7 +28,13 @@ namespace Sharpii
             if (args.Length < 1)
             {
                 help();
-                return;
+                Environment.Exit(0);
+            }
+
+            if (!File.Exists("libWiiSharp.dll"))
+            {
+                System.Console.WriteLine("ERROR: libWiiSharp.dll not found");
+                Environment.Exit(0);
             }
 
             for (int i = 1; i < args.Length; i++)
@@ -149,5 +155,5 @@ namespace Sharpii
     }
     public class Version
     {
-        public static string version = "1.1";
+        public static string version = "1.2";
     }

@@ -35,6 +35,7 @@ namespace Sharpii
             bool fs = false;
             bool es = false;
             bool np = false;
+            bool vp = false;
             int slot = -1;
             int version = -1;
 
@@ -59,6 +60,9 @@ namespace Sharpii
                     case "-NP":
                         np = true;
                         break;
+                    case "-VP":
+                        vp = true;
+                        break;
                     case "-SLOT":
                         if (i + 1 >= args.Length)
                         {
@@ -74,6 +78,23 @@ namespace Sharpii
                         { 
                             Console.WriteLine("Invalid slot {0}...", slot); 
                             return; 
+                        }
+                        break;
+                    case "-S":
+                        if (i + 1 >= args.Length)
+                        {
+                            Console.WriteLine("ERROR: No slot set");
+                            return;
+                        }
+                        if (!int.TryParse(args[i + 1], out slot))
+                        {
+                            Console.WriteLine("Invalid slot {0}...", args[i + 1]);
+                            return;
+                        }
+                        if (slot < 3 || slot > 255)
+                        {
+                            Console.WriteLine("Invalid slot {0}...", slot);
+                            return;
                         }
                         break;
                     case "-V":
@@ -151,6 +172,13 @@ namespace Sharpii
                     patcher.PatchNandPermissions();
                 }
 
+                if (vp == true)
+                {
+                    if (Quiet.quiet > 2)
+                        System.Console.WriteLine("Applying Version patch");
+                    patcher.PatchVP();
+                }
+
                 if (slot > -1 || version > -1)
                     ios.FakeSign = true;
 
@@ -178,12 +206,18 @@ namespace Sharpii
                 else
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Saving file");
+                        System.Console.Write("Saving file...");
 
-                    if (output.Substring(output.Length - 4, 4).ToUpper() != ".WAD")
-                        output = output + ".wad";
+                    if (output != "")
+                    {
+                        if (output.Substring(output.Length - 4, 4).ToUpper() != ".WAD")
+                            output = output + ".wad";
+                    }
 
                     ios.Save(input);
+
+                    if (Quiet.quiet > 2)
+                        System.Console.Write("Done!\n");
                 }
                 if (Quiet.quiet > 1)
                     System.Console.WriteLine("Operation completed succesfully!");
@@ -204,22 +238,24 @@ namespace Sharpii
         {
             System.Console.WriteLine("");
             System.Console.WriteLine("Sharpii {0} - IOS - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
-            System.Console.WriteLine("                Code based off PatchIOS by leathl");
+            System.Console.WriteLine("                    Code based off PatchIOS by leathl");
             System.Console.WriteLine("");
             System.Console.WriteLine("");
             System.Console.WriteLine("  Usage:");
             System.Console.WriteLine("");
-            System.Console.WriteLine("       Sharpii.exe IOS input [-o output] [-fs] [-es] [-np] [-s slot] [-v version]");
+            System.Console.WriteLine("       Sharpii.exe IOS input [-o output] [-fs] [-es] [-np] [-vp] [-s slot]");
+            System.Console.WriteLine("                             [-v version]");
             System.Console.WriteLine("");
             System.Console.WriteLine("");
             System.Console.WriteLine("  Arguments:");
             System.Console.WriteLine("");
-            System.Console.WriteLine("       input          The input file/folder");
-            System.Console.WriteLine("       -o output      The output file/folder");
+            System.Console.WriteLine("       input          The input file");
+            System.Console.WriteLine("       -o output      The output file");
             System.Console.WriteLine("       -fs            Patch Fakesigning");
             System.Console.WriteLine("       -es            Patch ES_Identify");
             System.Console.WriteLine("       -np            Patch NAND Permissions");
-            System.Console.WriteLine("       -slot #        Change IOS slot to #");
+            System.Console.WriteLine("       -vp            Add version patch");
+            System.Console.WriteLine("       -s #           Change IOS slot to #");
             System.Console.WriteLine("       -v #           Change IOS version to #");
         }
     }
