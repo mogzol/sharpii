@@ -147,6 +147,31 @@ namespace Sharpii
 
         }
     }
+    public class DeleteDir
+    {
+        public static bool DeleteDirectory(string target_dir)
+        {
+            bool result = false;
+
+            string[] files = Directory.GetFiles(target_dir);
+            string[] dirs = Directory.GetDirectories(target_dir);
+
+            foreach (string file in files)
+            {
+                File.SetAttributes(file, FileAttributes.Normal);
+                File.Delete(file);
+            }
+
+            foreach (string dir in dirs)
+            {
+                DeleteDirectory(dir);
+            }
+
+            Directory.Delete(target_dir, false);
+
+            return result;
+        }
+    }
     public class Quiet {
         //1 = little
         //2 = normal
@@ -155,5 +180,5 @@ namespace Sharpii
     }
     public class Version
     {
-        public static string version = "1.2";
+        public static string version = "1.3";
     }

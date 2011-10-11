@@ -39,6 +39,7 @@ namespace Sharpii
 
             //Set up variables
             string id = "";
+            string content = "";
             int version = -1;
             string output = "";
             bool local = false;
@@ -127,6 +128,22 @@ namespace Sharpii
                         }
                         id = args[i + 1];
                         break;
+                    case "-SINGLE":
+                        if (i + 1 >= args.Length)
+                        {
+                            Console.WriteLine("ERROR: No ID specified");
+                            return;
+                        }
+                        content = args[i + 1];
+                        break;
+                    case "-S":
+                        if (i + 1 >= args.Length)
+                        {
+                            Console.WriteLine("ERROR: No ID specified");
+                            return;
+                        }
+                        content = args[i + 1];
+                        break;
                 }
             }
 
@@ -168,14 +185,28 @@ namespace Sharpii
                         System.Console.WriteLine("Using local files if present...");
                     nus.UseLocalFiles = true;
                 }
-                
-                if (Quiet.quiet > 1)
-                    System.Console.Write("Downloading title...");
 
-                nus.DownloadTitle(id, version.ToString(), output, store.ToArray());
-                
-                if (Quiet.quiet > 1)
-                    System.Console.Write("Done!\n");
+
+                if (content != "")
+                {
+                    if (Quiet.quiet > 1)
+                        System.Console.Write("Downloading content...");
+
+                    nus.DownloadSingleContent(id, version.ToString(), content, output);
+
+                    if (Quiet.quiet > 1)
+                        System.Console.Write("Done!\n");
+                }
+                else
+                {
+                    if (Quiet.quiet > 1)
+                        System.Console.Write("Downloading title...");
+
+                    nus.DownloadTitle(id, version.ToString(), output, store.ToArray());
+
+                    if (Quiet.quiet > 1)
+                        System.Console.Write("Done!\n");
+                }
 
                 if (Quiet.quiet > 1)
                     System.Console.WriteLine("Operation completed succesfully!");
@@ -201,7 +232,7 @@ namespace Sharpii
             System.Console.WriteLine("  Usage:");
             System.Console.WriteLine("");
             System.Console.WriteLine("       Sharpii.exe NUSD [-id titleID] [-v version] [-o otput] [-all] [-wad]");
-            System.Console.WriteLine("                        [-decrypt] [-encrypt] [-local]");
+            System.Console.WriteLine("                        [-decrypt] [-encrypt] [-local] [-s content]");
             System.Console.WriteLine("");
             System.Console.WriteLine("");
             System.Console.WriteLine("  Arguments:");
@@ -210,6 +241,9 @@ namespace Sharpii
             System.Console.WriteLine("       -v version     [required] The version of the file you wish to download");
             System.Console.WriteLine("       -o output      Folder to output the files to");
             System.Console.WriteLine("       -local         Use local files if present");
+            System.Console.WriteLine("       -s content     Download a single content from the file");
+            System.Console.WriteLine("                      NOTE: When using this, output MUST have a path and a");
+            System.Console.WriteLine("                      filename. For current directory use '.\\[filename]'");
             System.Console.WriteLine("       -all           Create and keep encrypted, decrypted, and WAD versions");
             System.Console.WriteLine("                      of the file you wish to download");
             System.Console.WriteLine("       -wad           Keep only the WAD version of the file you wish to");
