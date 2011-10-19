@@ -25,22 +25,21 @@ namespace Sharpii
     {
         public static void SendDol(string[] args)
         {
-            if (args.Length < 3)
+            if (args.Length < 2)
             {
                 SendDol_help();
                 return;
             }
-            string input = args[1];
-            string ip = "";
-            string protocol = "JODI";
-            bool compress = true;
-
-            //Check if file exists
-            if (File.Exists(input) == false)
+            if (args[1].ToUpper() == "-H" || args[1].ToUpper() == "-HELP")
             {
-                System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                SendDol_help();
                 return;
             }
+            string input = "";
+            string ip = "";
+            string protocol = "JODI";
+            string arguments = "";
+            bool compress = true;
 
             //Get parameters
             for (int i = 1; i < args.Length; i++)
@@ -54,6 +53,29 @@ namespace Sharpii
                             return;
                         }
                         ip = args[i + 1];
+                        break;
+                    case "-DOL":
+                        if (i + 1 >= args.Length)
+                        {
+                            Console.WriteLine("ERROR: No dol set");
+                            return;
+                        }
+                        input = args[i + 1];
+                        //Check if file exists
+                        if (File.Exists(input) == false)
+                        {
+                            System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                            return;
+                        }
+
+                        if (i + 1 < args.Length)
+                        {
+                            for (int n = i + 2; n < args.Length; n++)
+                            {
+                                arguments = arguments + "\x0000";
+                                arguments = arguments + args[n];
+                            }
+                        }
                         break;
                     case "-NOCOMP":
                         compress = false;
@@ -95,7 +117,7 @@ namespace Sharpii
                 if (Quiet.quiet > 1)
                     System.Console.Write("Sending file...");
 
-                file.TransmitFile(input);
+                file.TransmitFile(Path.GetFileName(input) + arguments, File.ReadAllBytes(input));
 
                 if (Quiet.quiet > 1)
                     System.Console.Write("Done!\n");
@@ -120,15 +142,19 @@ namespace Sharpii
             System.Console.WriteLine("");
             System.Console.WriteLine("  Usage:");
             System.Console.WriteLine("");
-            System.Console.WriteLine("       Sharpii.exe SendDol file -ip ip_adress [-old] [-nocomp]");
+            System.Console.WriteLine("       Sharpii.exe SendDol -ip ip_adress [-old] [-nocomp] -dol file [args]");
             System.Console.WriteLine("");
             System.Console.WriteLine("");
             System.Console.WriteLine("  Arguments:");
             System.Console.WriteLine("");
-            System.Console.WriteLine("       file           The dol file to send");
+            System.Console.WriteLine("       -dol file      The dol file to send");
             System.Console.WriteLine("       -ip ip_adress  The IP address of your wii");
             System.Console.WriteLine("       -old           Use for the old (1.0.4 and below) HBC");
             System.Console.WriteLine("       -nocomp        Disable compression");
+            System.Console.WriteLine("       args           Dol arguments");
+            System.Console.WriteLine("");
+            System.Console.WriteLine("       NOTE: Any arguments after '-dol file' will be sent as dol");
+            System.Console.WriteLine("             arguments");
         }
     }
 }

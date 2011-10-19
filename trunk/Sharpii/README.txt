@@ -1,5 +1,5 @@
 /------------------------------------------------------------------------------>
-                                  Sharpii 1.3
+                                  Sharpii 1.4
        <---------------------------------------------------------------->
                                An app by person66
                  libWiiSharp.dll by leathl (mod by scooby74029)                         
@@ -40,7 +40,7 @@ help with.
 /----NOTES
 /------------------------------>
 
-NUS Downloading:
+ NUS Downloading:
 /------------------>
   When downloading single contents from NUS (using the -s argument) make
   sure you have both the path, and the file name when specifying the output.
@@ -51,19 +51,29 @@ NUS Downloading:
   Also note that When Downloading single contents, it will only save the
   decrypted file.
 	
-WAD Editing:
+ WAD Editing:
 /------------------>
-    When changing the type of WAD (using the -type argument) some of the types
-    may not work, as they have not all been tested. Here is a list of what the
-    different types are:
-               - Channel: Regular channel WAD, nothing special
-               - DLC: WAD for game DLC (downloaded game content)
-               - GameChannel: Channels such as the Wii Fit or Mario Kart channels
-               - HiddenChannels: A hidden channel, it wont show up on the Wii Menu
-               - SystemChannels: Channels such as the Mii or Shopping channels
-               - SystemTitles: Stuff like the System Menu and boot2 (but not IOSs)
+  When changing the type of WAD (using the -type argument) some of the types
+  may not work, as they have not all been tested. Here is a list of what the
+  different types are:
+            - Channel: Regular channel WAD, nothing special
+            - DLC: WAD for game DLC (downloaded game content)
+            - GameChannel: Channels such as the Wii Fit or Mario Kart channels
+            - HiddenChannels: A hidden channel, it wont show up on the Wii Menu
+            - SystemChannels: Channels such as the Mii or Shopping channels
+            - SystemTitles: Stuff like the System Menu and boot2 (but not IOSs)
 
-    For more details see http://wiibrew.org/wiki/Title_database
+  For more details see http://wiibrew.org/wiki/Title_database
+
+ SendDol:
+/------------------>
+  When using Sharpii's SendDol function, please note that any arguments placed
+  after the '-dol file' argument will be sent as dol arguments.
+
+  Also note that for compression to actually work, 'zlib1.dll' must be placed in
+  the same directory as Sharpii. This file is not included, but it can easily be
+  found online. If you are sending a zip file instead of a dol, it wont be 
+  compressed at all, no matter what.
 
 
 /----SOURCE
@@ -95,6 +105,10 @@ See "LICENSE.txt" for more information.
 /----CHANGELOG
 /------------------------------>
 
+1.4
+  - Added the ability to send arguments in the SendDol function
+  - Changed the way the SendDol function works a little
+  - More code cleanup and bug fixes
 1.3
   - Added the ability to copy parts of one WAD to a different
     WAD (either the banner, the icon, the sound, or the dol)
