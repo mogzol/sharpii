@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Sharpii.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Sharpii. If not, see <http://www.gnu.org/licenses/>.
  */
 
 using System;
@@ -342,7 +342,7 @@ namespace Sharpii
                         app = args[i + 1];
                         if (File.Exists(app) == false)
                         {
-                            Console.WriteLine("ERROR: Unable to find dol wad");
+                            Console.WriteLine("ERROR: Unable to find dol wad/file");
                             return;
                         }
                         break;
@@ -438,8 +438,16 @@ namespace Sharpii
                         if (Quiet.quiet > 2)
                             System.Console.Write("Grabbing dol...");
 
-                        twad.LoadFile(app);
-                        twad.Unpack(temp + "\\dol");
+                        if (app.Substring(app.Length - 4, 4) == ".dol")
+                        {
+                            Directory.CreateDirectory(temp + "\\dol\\");
+                            File.Copy(app, temp + "\\dol\\00000001.app");
+                        }
+                        else
+                        {
+                            twad.LoadFile(app);
+                            twad.Unpack(temp + "\\dol");
+                        }
 
                         File.Copy(temp + "\\dol\\00000001.app", temp + "\\main\\00000001.app", true);
 
@@ -624,6 +632,8 @@ namespace Sharpii
             System.Console.WriteLine("         -banner [wad]  Use the banner from 'wad'");
             System.Console.WriteLine("         -icon [wad]    Use the icon from 'wad'");
             System.Console.WriteLine("         -dol [wad]     Use the dol from 'wad'");
+            System.Console.WriteLine("                        NOTE: you can also just enter the path to a");
+            System.Console.WriteLine("                        regular dol file, instead of a wad");
         }
     }
 }

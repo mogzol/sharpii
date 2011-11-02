@@ -12,11 +12,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Sharpii.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Sharpii. If not, see <http://www.gnu.org/licenses/>.
  */
 
 using System;
 using System.IO;
+using System.Net;
 using libWiiSharp;
 
 namespace Sharpii
@@ -34,7 +35,23 @@ namespace Sharpii
             if (!File.Exists("libWiiSharp.dll"))
             {
                 System.Console.WriteLine("ERROR: libWiiSharp.dll not found");
-                Environment.Exit(0);
+                System.Console.WriteLine("\n\nAttemp to download? [Y/N]");
+                System.Console.Write("\n>>");
+                string ans = Console.ReadLine();
+                if (ans.ToUpper() == "Y")
+                {
+                    try
+                    {
+                        Console.Write("\nGrabbing libWiiSharp.dll...");
+                        WebClient DLwadInstaller = new WebClient();
+                        DLwadInstaller.DownloadFile("http://sharpii.googlecode.com/svn/trunk/Sharpii/libWiiSharp.dll", "libWiiSharp.dll");
+                        Console.Write("Done!\n");
+                    }
+                    catch (Exception ex)
+                    { System.Console.WriteLine("An error occured: {0}", ex.Message); Environment.Exit(0); }
+                }
+                else
+                    Environment.Exit(0);
             }
 
             for (int i = 1; i < args.Length; i++)
@@ -54,59 +71,74 @@ namespace Sharpii
             }
 
             string Function = args[0];
+            bool gotSomewhere = false;
 
             if (Function.ToUpper() == "-H" || Function.ToUpper() == "-HELP" || Function.ToUpper() == "H" || Function.ToUpper() == "HELP")
             {
                 help();
-                Environment.Exit(0);
+                gotSomewhere = true;
             }
 
             if (Function.ToUpper() == "BNS")
             {
                 BNS_Stuff.BNS(args);
-                Environment.Exit(0);
+                gotSomewhere = true;
             }
 
             if (Function.ToUpper() == "WAD")
             {
                 WAD_Stuff.WAD(args);
-                Environment.Exit(0);
+                gotSomewhere = true;
             }
 
             if (Function.ToUpper() == "TPL")
             {
                 TPL_Stuff.TPL(args);
-                Environment.Exit(0);
+                gotSomewhere = true;
             }
 
             if (Function.ToUpper() == "U8")
             {
                 U8_Stuff.U8(args);
-                Environment.Exit(0);
+                gotSomewhere = true;
             }
 
             if (Function.ToUpper() == "IOS")
             {
                 IOS_Stuff.IOS(args);
-                Environment.Exit(0);
+                gotSomewhere = true;
             }
 
             if (Function.ToUpper() == "NUS" || Function.ToUpper() == "NUSD")
             {
                 NUS_Stuff.NUS(args);
-                Environment.Exit(0);
+                gotSomewhere = true;
             }
 
             if (Function.ToUpper() == "SENDDOL" || Function.ToUpper() == "SENDOL")
             {
                 HBC_Stuff.SendDol(args);
-                Environment.Exit(0);
+                gotSomewhere = true;
+            }
+
+            if (Function.ToUpper() == "SENDWAD")
+            {
+                bool cont = HBC_Stuff.SendWad_Check(args);
+                if (cont == true) HBC_Stuff.SendWad(args);
+                gotSomewhere = true;
             }
 
 
 
-            //If tuser gets here, they entered something wrong
-            System.Console.WriteLine("ERROR: The argument {0} is invalid", args[0]);
+            if (gotSomewhere == false)
+            {
+                //If tuser gets here, they entered something wrong
+                System.Console.WriteLine("ERROR: The argument {0} is invalid", args[0]);
+            }
+
+            string temp = Path.GetTempPath() + "Sharpii.tmp";
+            if (Directory.Exists(temp) == true)
+                DeleteDir.DeleteDirectory(temp);
 
             Environment.Exit(0);
         }
@@ -131,6 +163,7 @@ namespace Sharpii
             System.Console.WriteLine("       IOS            Apply various patches to an IOS");
             System.Console.WriteLine("       NUSD           Download files from NUS");
             System.Console.WriteLine("       SendDol        Send a dol to the HBC over wifi");
+            System.Console.WriteLine("       SendWad        Send a wad to the HBC over wifi");
             System.Console.WriteLine("");
             System.Console.WriteLine("       NOTE: Too see more detailed descriptions of any of the above,");
             System.Console.WriteLine("             use 'Sharpii [function] -h'");
@@ -180,5 +213,5 @@ namespace Sharpii
     }
     public class Version
     {
-        public static string version = "1.4";
+        public static string version = "1.5";
     }

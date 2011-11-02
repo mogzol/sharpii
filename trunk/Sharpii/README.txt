@@ -1,5 +1,5 @@
 /------------------------------------------------------------------------------>
-                                  Sharpii 1.4
+                                  Sharpii 1.5
        <---------------------------------------------------------------->
                                An app by person66
                  libWiiSharp.dll by leathl (mod by scooby74029)                         
@@ -18,7 +18,7 @@ libWiiSharp.dll to perform tasks such as:
          - Download files from NUS
          - Convert a .wav file to .bns, and vice versa
          - Convert an image file to a .tpl, and vice versa
-         - Send a .dol to the Homebrew Channel over Wi-Fi
+         - Send a .dol or .wad to the Homebrew Channel over Wi-Fi
 
 
 /----USAGE
@@ -50,6 +50,13 @@ help with.
 	
   Also note that When Downloading single contents, it will only save the
   decrypted file.
+  
+  If you wish to download the latest content, use '-v latest' instead of the
+  actual version number.
+  
+  If you have the output format set only to WAD, and your your output location
+  has '.wad' at the end, or you have not specified one, then instead of being
+  saved inside a folder, just the wad file will be saved.
 	
  WAD Editing:
 /------------------>
@@ -91,6 +98,11 @@ it borrows some code from some of the examples included with libWiiSharp.
 libWiiSharp can be found at: libwiisharp.googlecode.com
 
 
+SendWad uses CRAP's installer by WiiCrazy/I.R.on, with any edits that leathl
+may have made when adding it to CustomizeMii (which is where I got the source
+from)
+
+
 I would also like to thank XFlak and JoostinOnline for doing a bit of beta 
 testing for me. Thanks!
 
@@ -105,6 +117,18 @@ See "LICENSE.txt" for more information.
 /----CHANGELOG
 /------------------------------>
 
+1.5
+  - Added the ability to send WADs to the HBC using SendWad
+  - You can now download an IOS with -ios # in NUSD
+  - Downloaded IOS wads are now namedlike so: IOS##-64-####.wad
+  - Under certain conditions, when downloading a wad with NUS,
+    it will not be saved in a folder, just as the WAD (see ReadMe)
+  - If missing dll's are detected (WadInstaller or libWiiSharp),
+    Sharpii will ask to download them, if they are required.
+  - You can now use a .dol file instead of a .wad with the '-dol'
+    in the WAD editor/packer
+  - Probably a few other little things I have forgotten
+  - Even more code cleanup and bug fixes
 1.4
   - Added the ability to send arguments in the SendDol function
   - Changed the way the SendDol function works a little

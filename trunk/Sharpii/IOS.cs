@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Sharpii.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Sharpii. If not, see <http://www.gnu.org/licenses/>.
  */
 
 using System;
@@ -239,7 +239,6 @@ namespace Sharpii
             System.Console.WriteLine("");
             System.Console.WriteLine("Sharpii {0} - IOS - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
             System.Console.WriteLine("                    Code based off PatchIOS by leathl");
-            System.Console.WriteLine("");
             System.Console.WriteLine("");
             System.Console.WriteLine("  Usage:");
             System.Console.WriteLine("");
