@@ -41,6 +41,7 @@ namespace Sharpii
             string protocol = "JODI";
             string arguments = "";
             bool compress = true;
+            bool saveip = false;
 
             //Get parameters
             for (int i = 1; i < args.Length; i++)
@@ -55,6 +56,9 @@ namespace Sharpii
                         }
                         ip = args[i + 1];
                         break;
+                    case "-SAVEIP":
+                        saveip = true;
+                        break;
                     case "-DOL":
                         if (i + 1 >= args.Length)
                         {
@@ -65,7 +69,7 @@ namespace Sharpii
                         //Check if file exists
                         if (File.Exists(input) == false)
                         {
-                            System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                            Console.WriteLine("ERROR: Unable to open file: {0}", input);
                             return;
                         }
 
@@ -90,44 +94,58 @@ namespace Sharpii
             //Run main part, and check for exceptions
             try
             {
+                if (ip != "" && saveip == true)
+                {
+                    if (Quiet.quiet > 2)
+                        Console.WriteLine("Saving IP");
+                    Environment.SetEnvironmentVariable("SharpiiIP", ip, EnvironmentVariableTarget.User);
+                }
+
+                if (ip == "")
+                {
+                    if (Quiet.quiet > 2)
+                        Console.WriteLine("No IP set, using {0}", Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.User));
+                    ip = Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.User);
+                }
+                
                 libWiiSharp.Protocol proto = Protocol.JODI;
 
                 if (Quiet.quiet > 2 && protocol == "HAXX")
-                    System.Console.WriteLine("Using old protocol");
+                    Console.WriteLine("Using old protocol");
 
                 if (protocol == "HAXX")
                     proto = Protocol.HAXX;
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Loading File...");
+                    Console.Write("Loading File...");
 
                 HbcTransmitter file = new HbcTransmitter(proto, ip);
                 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
 
                 if (Quiet.quiet > 2 && compress == true)
-                    System.Console.Write("Compressing File...");
+                    Console.Write("Compressing File...");
                 
                 file.Compress = compress;
                 
                 if (Quiet.quiet > 2 && compress == true)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 1)
-                    System.Console.Write("Sending file...");
+                    Console.Write("Sending file...");
 
                 file.TransmitFile(Path.GetFileName(input) + arguments, File.ReadAllBytes(input));
 
                 if (Quiet.quiet > 1)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
 
@@ -150,9 +168,9 @@ namespace Sharpii
 
             if (!File.Exists("WadInstaller.dll"))
             {
-                System.Console.WriteLine("ERROR: WadInstaller.dll not found");
-                System.Console.WriteLine("\n\nAttemp to download? [Y/N]");
-                System.Console.Write("\n>>");
+                Console.WriteLine("ERROR: WadInstaller.dll not found");
+                Console.WriteLine("\n\nAttemp to download? [Y/N]");
+                Console.Write("\n>>");
                 string ans = Console.ReadLine();
                 if (ans.ToUpper() == "Y")
                 {
@@ -164,7 +182,7 @@ namespace Sharpii
                         Console.Write("Done!\n");
                     }
                     catch (Exception ex)
-                    { System.Console.WriteLine("An error occured: {0}", ex.Message); return false; }
+                    { Console.WriteLine("An error occured: {0}", ex.Message); return false; }
                 }
                 else
                     return false;
@@ -179,6 +197,8 @@ namespace Sharpii
             string ip = "";
             string ios = "";
             string protocol = "JODI";
+            bool ahb = false;
+            bool saveip = false;
 
             //Get parameters
             for (int i = 1; i < args.Length; i++)
@@ -188,7 +208,7 @@ namespace Sharpii
                     case "-IOS":
                         if (i + 1 >= args.Length)
                         {
-                            Console.WriteLine("ERROR: No ip set");
+                            Console.WriteLine("ERROR: No ios set");
                             return;
                         }
                         ios = args[i + 1];
@@ -198,6 +218,9 @@ namespace Sharpii
                             return;
                         }
                         break;
+                    case "-AHB":
+                        ahb = true;
+                        break;
                     case "-IP":
                         if (i + 1 >= args.Length)
                         {
@@ -205,6 +228,9 @@ namespace Sharpii
                             return;
                         }
                         ip = args[i + 1];
+                        break;
+                    case "-SAVEIP":
+                        saveip = true;
                         break;
                     case "-WAD":
                         if (i + 1 >= args.Length)
@@ -216,7 +242,7 @@ namespace Sharpii
                         //Check if file exists
                         if (File.Exists(input) == false)
                         {
-                            System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                            Console.WriteLine("ERROR: Unable to open file: {0}", input);
                             return;
                         }
                         break;
@@ -229,36 +255,57 @@ namespace Sharpii
             //Run main part, and check for exceptions
             try
             {
+                if (ip != "" && saveip == true)
+                {
+                    if (Quiet.quiet > 2)
+                        Console.WriteLine("Saving IP");
+                    Environment.SetEnvironmentVariable("SharpiiIP", ip, EnvironmentVariableTarget.User);
+                }
+
+                if (ahb == true || ios == "")
+                {
+                    if (Quiet.quiet > 2)
+                        Console.WriteLine("Using AHBPROT");
+                    ios = "0";
+                }
+
+                if (ip == "")
+                {
+                    if (Quiet.quiet > 2)
+                        Console.WriteLine("No IP set, using {0}", Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.User));
+                    ip = Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.User);
+                }
+
                 libWiiSharp.Protocol proto = Protocol.JODI;
 
                 if (Quiet.quiet > 2 && protocol == "HAXX")
-                    System.Console.WriteLine("Using old protocol");
+                    Console.WriteLine("Using old protocol");
 
                 if (protocol == "HAXX")
                     proto = Protocol.HAXX;
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Loading File...");
+                    Console.Write("Loading File...");
 
                 HbcTransmitter file = new HbcTransmitter(proto, ip);
                 byte[] Installer = WadInstaller.InstallerHelper.CreateInstaller(input, (byte)Convert.ToInt32(ios)).ToArray();
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 1)
-                    System.Console.Write("Sending file...");
+                    Console.Write("Sending file...");
 
                 file.TransmitFile("WadInstaller.dol", Installer);
 
                 if (Quiet.quiet > 1)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
 
@@ -268,47 +315,52 @@ namespace Sharpii
 
         private static void SendDol_help()
         {
-            System.Console.WriteLine("");
-            System.Console.WriteLine("Sharpii {0} - SendDol - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Usage:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       Sharpii.exe SendDol -ip ip_adress [-old] [-nocomp] -dol file [args]");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Arguments:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       -dol file      The dol file to send");
-            System.Console.WriteLine("       -ip ip_adress  The IP address of your wii");
-            System.Console.WriteLine("       -old           Use for the old (1.0.4 and below) HBC");
-            System.Console.WriteLine("       -nocomp        Disable compression");
-            System.Console.WriteLine("       args           Dol arguments");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       NOTE: Any arguments after '-dol file' will be sent as dol");
-            System.Console.WriteLine("             arguments");
+            Console.WriteLine("");
+            Console.WriteLine("Sharpii {0} - SendDol - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Usage:");
+            Console.WriteLine("");
+            Console.WriteLine("       Sharpii.exe SendDol -ip ip_adress [-old] [-nocomp] [-saveip]");
+            Console.WriteLine("                            -dol file [args]");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Arguments:");
+            Console.WriteLine("");
+            Console.WriteLine("       -dol file      The dol file to send");
+            Console.WriteLine("       -ip ip_adress  The IP address of your wii");
+            Console.WriteLine("       -saveip        Save entered IP address for future use");
+            Console.WriteLine("       -old           Use for the old (1.0.4 and below) HBC");
+            Console.WriteLine("       -nocomp        Disable compression");
+            Console.WriteLine("       args           Dol arguments");
+            Console.WriteLine("");
+            Console.WriteLine("       NOTE: Any arguments after '-dol file' will be sent as dol");
+            Console.WriteLine("             arguments");
         }
 
         public static void SendWad_help()
         {
-            System.Console.WriteLine("");
-            System.Console.WriteLine("Sharpii {0} - SendWad - A tool by person66, using libWiiSharp.dll by leathl,", Version.version);
-            System.Console.WriteLine("                        and CRAP's installer by WiiCrazy/I.R.on");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Usage:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       Sharpii.exe SendWad -ip ip_adress -wad file -ios ios [-old] [-nocomp]");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Arguments:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       -dol file      The dol file to send");
-            System.Console.WriteLine("       -ip ip_adress  The IP address of your wii");
-            System.Console.WriteLine("       -ios ios       The ios to use to install the wad");
-            System.Console.WriteLine("       -old           Use for the old (1.0.4 and below) HBC");
-            System.Console.WriteLine("       -nocomp        Disable compression");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       NOTE: WAD files must be less than 8MB large");
+            Console.WriteLine("");
+            Console.WriteLine("Sharpii {0} - SendWad - A tool by person66, using libWiiSharp.dll by leathl,", Version.version);
+            Console.WriteLine("                        and CRAP's installer by WiiCrazy/I.R.on");
+            Console.WriteLine("");
+            Console.WriteLine("  Usage:");
+            Console.WriteLine("");
+            Console.WriteLine("       Sharpii.exe SendWad -ip ip_adress -wad file [-ios IOS | -ahb] [-old]");
+            Console.WriteLine("                           [-nocomp] [-saveip]");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Arguments:");
+            Console.WriteLine("");
+            Console.WriteLine("       -dol file      The dol file to send");
+            Console.WriteLine("       -ip ip_adress  The IP address of your wii");
+            Console.WriteLine("       -ios ios       The ios to use to install the wad");
+            Console.WriteLine("       -ahb           Use HW_AHBPROT to install the wad");
+            Console.WriteLine("       -saveip        Save entered IP address for future use");
+            Console.WriteLine("       -old           Use for the old (1.0.4 and below) HBC");
+            Console.WriteLine("       -nocomp        Disable compression");
+            Console.WriteLine("");
+            Console.WriteLine("       NOTE: WAD files must be less than 8MB large");
         }
     }
 }

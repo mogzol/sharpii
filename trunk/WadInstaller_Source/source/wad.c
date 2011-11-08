@@ -81,6 +81,32 @@ int mread(void * buf, int size, int count)
 
 //-------------------------- INSTALL FROM MEMORY -------------------------------
 
+void __Wad_FixTicket(signed_blob *p_tik) {
+    u8 *data = (u8 *) p_tik;
+    u8 *ckey = data + 0x1F1;
+
+    if (*ckey > 1) {
+        /* Set common key */
+        *ckey = 0;
+
+        /* Fakesign ticket */
+        brute_tik((tik *) p_tik);
+    }
+}
+
+s32 brute_tik(tik *p_tik) {
+    u16 fill;
+    for (fill = 0; fill < 65535; fill++) {
+        p_tik->padding = fill;
+        sha1 hash;
+        //    gprintf("SHA1(%p, %x, %p)\n", p_tmd, TMD_SIZE(p_tmd), hash);
+        SHA1((u8 *) p_tik, sizeof(tik), hash);
+        if (hash[0] == 0) return 1;
+    }
+    printf("Unable to fix tik :(\n");
+    return -1;
+}
+
 s32 __Wad_ReadFile(void *outbuf, u32 offset, u32 len)
 {
 	s32 ret;
@@ -192,8 +218,12 @@ s32 __Wad_Install()
 	ret = __Wad_ReadAlloc((void *)&p_tik, offset, header->tik_len);
 	if (ret < 0)
 		goto err;
-	else
+	else {
 		offset += round_up(header->tik_len, 64);
+		
+		// Fix ticket (This is what caused me the headaches when adding AHBPROT -person66)
+        __Wad_FixTicket(p_tik);
+	}
 
 	/* WAD TMD */
 	ret = __Wad_ReadAlloc((void *)&p_tmd, offset, header->tmd_len);

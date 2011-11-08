@@ -46,7 +46,7 @@ namespace Sharpii
             }
 
             //If tuser gets here, they entered something wrong
-            System.Console.WriteLine("ERROR: The argument {0} is invalid", args[1]);
+            Console.WriteLine("ERROR: The argument {0} is invalid", args[1]);
             return;
 
         }
@@ -59,13 +59,13 @@ namespace Sharpii
             //Check if file exists
             if (File.Exists(input) == false)
             {
-                System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                Console.WriteLine("ERROR: Unable to open file: {0}", input);
                 return;
             }
             //Check if file is U8
             if (libWiiSharp.U8.IsU8(input) != true)
             {
-                System.Console.WriteLine("ERROR: File {0} is not a U8 archive", input);
+                Console.WriteLine("ERROR: File {0} is not a U8 archive", input);
                 return;
             }
            
@@ -76,29 +76,29 @@ namespace Sharpii
                 U8 U8file = new U8();
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Loading file...");
+                    Console.Write("Loading file...");
 
                 U8file.LoadFile(input);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Extracting file...");
+                    Console.Write("Extracting file...");
 
                 U8file.Extract(output);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 1)
-                    System.Console.WriteLine("Operation completed succesfully!");
+                    Console.WriteLine("Operation completed succesfully!");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
         }
@@ -115,7 +115,7 @@ namespace Sharpii
             //Check if folder exists
             if (Directory.Exists(input) == false)
             {
-                System.Console.WriteLine("ERROR: Unable to open Folder: {0}", input);
+                Console.WriteLine("ERROR: Unable to open Folder: {0}", input);
                 return;
             }
 
@@ -142,7 +142,7 @@ namespace Sharpii
 
             if (imd5 == true && imet != "")
             {
-                System.Console.WriteLine("ERROR: Cannot use IMET and IMD5 at the same time.");
+                Console.WriteLine("ERROR: Cannot use IMET and IMD5 at the same time.");
                 return;
             }
 
@@ -152,24 +152,24 @@ namespace Sharpii
                 U8 U8folder = new U8();
                 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Loading folder...");
+                    Console.Write("Loading folder...");
 
                 U8folder.CreateFromDirectory(input);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (imd5 == true)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Adding IMD5 Header");
+                        Console.WriteLine("Adding IMD5 Header");
                     U8folder.AddHeaderImd5();
                 }
 
                 if (imet != "")
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Adding IMET header with title: {0}", imet);
+                        Console.WriteLine("Adding IMET header with title: {0}", imet);
                     U8folder.AddHeaderImet(false, imet);
                 }
 
@@ -177,51 +177,51 @@ namespace Sharpii
                 {
                     //Yeah, I know this isnt where it actually compresses it
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Compressing U8 archive");
+                        Console.WriteLine("Compressing U8 archive");
                     U8folder.Lz77Compress = true;
                 }
 
                 if (Quiet.quiet > 2)
-                    System.Console.WriteLine("Saving file");
+                    Console.WriteLine("Saving file");
 
                 U8folder.Save(output);
                 
                 if (Quiet.quiet > 1)
-                    System.Console.WriteLine("Operation completed succesfully!");
+                    Console.WriteLine("Operation completed succesfully!");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
         }
 
         public static void U8_help()
         {
-            System.Console.WriteLine("");
-            System.Console.WriteLine("Sharpii {0} - U8 - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Usage:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       Sharpii.exe U8 [-p | -u] input output [arguments]");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Arguments:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       input          The input file/folder");
-            System.Console.WriteLine("       output         The output file/folder");
-            System.Console.WriteLine("       -p             Pack");
-            System.Console.WriteLine("       -u             Unpack");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("    Arguments for Packing:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("         -imet [title]  Pack with an IMET header (for 00000000.app)");
-            System.Console.WriteLine("                        You MUST enter a channel title");
-            System.Console.WriteLine("         -imd5          Pack with an IMD5 header (for Banner/Icon.bin)");
-            System.Console.WriteLine("         -lz77          Compress with lz77");
+            Console.WriteLine("");
+            Console.WriteLine("Sharpii {0} - U8 - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Usage:");
+            Console.WriteLine("");
+            Console.WriteLine("       Sharpii.exe U8 [-p | -u] input output [arguments]");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Arguments:");
+            Console.WriteLine("");
+            Console.WriteLine("       input          The input file/folder");
+            Console.WriteLine("       output         The output file/folder");
+            Console.WriteLine("       -p             Pack");
+            Console.WriteLine("       -u             Unpack");
+            Console.WriteLine("");
+            Console.WriteLine("    Arguments for Packing:");
+            Console.WriteLine("");
+            Console.WriteLine("         -imet [title]  Pack with an IMET header (for 00000000.app)");
+            Console.WriteLine("                        You MUST enter a channel title");
+            Console.WriteLine("         -imd5          Pack with an IMD5 header (for Banner/Icon.bin)");
+            Console.WriteLine("         -lz77          Compress with lz77");
         }
     }
 }

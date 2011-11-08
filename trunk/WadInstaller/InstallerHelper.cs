@@ -41,7 +41,7 @@ namespace WadInstaller
 
         public static MemoryStream CreateInstaller(byte[] wadFileBytes, byte iosToUse)
         {
-            const int injectionPosition = 0x6A698;
+            const int injectionPosition = 0x665FC;
             const int maxAllowedSizeForWads = 8 * 1024 * 1024 - 32; //(Max 4MB-32bytes )
 
             //0. Read length of the wad to ensure it has an allowed size

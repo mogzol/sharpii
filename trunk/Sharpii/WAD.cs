@@ -78,7 +78,7 @@ namespace Sharpii
             }
 
             //If tuser gets here, they entered something wrong
-            System.Console.WriteLine("ERROR: The argument {0} is invalid", args[1]);
+            Console.WriteLine("ERROR: The argument {0} is invalid", args[1]);
 
             return;
         }
@@ -92,7 +92,7 @@ namespace Sharpii
             //Check if file exists
             if (File.Exists(input) == false)
             {
-                System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                Console.WriteLine("ERROR: Unable to open file: {0}", input);
                 return;
             }
 
@@ -127,41 +127,41 @@ namespace Sharpii
                 WAD wad = new WAD();
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Loading file...");
+                    Console.Write("Loading file...");
 
                 wad.LoadFile(input);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 1 && output == "")
                 {
-                    System.Console.WriteLine("WAD Info:");
-                    System.Console.WriteLine("");
+                    Console.WriteLine("WAD Info:");
+                    Console.WriteLine("");
                     if (titles == false)
-                        System.Console.WriteLine("Title: {0}", wad.ChannelTitles[1]);
+                        Console.WriteLine("Title: {0}", wad.ChannelTitles[1]);
                     else
                     {
-                        System.Console.WriteLine("Titles:\n");
-                        System.Console.WriteLine("   Japanese: {0}", wad.ChannelTitles[0]);
-                        System.Console.WriteLine("   English: {0}", wad.ChannelTitles[1]);
-                        System.Console.WriteLine("   German: {0}", wad.ChannelTitles[2]);
-                        System.Console.WriteLine("   French: {0}", wad.ChannelTitles[3]);
-                        System.Console.WriteLine("   Spanish: {0}", wad.ChannelTitles[4]);
-                        System.Console.WriteLine("   Italian: {0}", wad.ChannelTitles[5]);
-                        System.Console.WriteLine("   Dutch: {0}", wad.ChannelTitles[6]);
-                        System.Console.WriteLine("   Korean: {0}\n", wad.ChannelTitles[7]);
+                        Console.WriteLine("Titles:\n");
+                        Console.WriteLine("   Japanese: {0}", wad.ChannelTitles[0]);
+                        Console.WriteLine("   English: {0}", wad.ChannelTitles[1]);
+                        Console.WriteLine("   German: {0}", wad.ChannelTitles[2]);
+                        Console.WriteLine("   French: {0}", wad.ChannelTitles[3]);
+                        Console.WriteLine("   Spanish: {0}", wad.ChannelTitles[4]);
+                        Console.WriteLine("   Italian: {0}", wad.ChannelTitles[5]);
+                        Console.WriteLine("   Dutch: {0}", wad.ChannelTitles[6]);
+                        Console.WriteLine("   Korean: {0}\n", wad.ChannelTitles[7]);
                     }
-                    System.Console.WriteLine("Title ID: {0}", wad.UpperTitleID);
-                    System.Console.WriteLine("IOS: {0}", ((int)wad.StartupIOS).ToString());
-                    System.Console.WriteLine("Region: {0}", wad.Region);
-                    System.Console.WriteLine("Version: {0}", wad.TitleVersion);
-                    System.Console.WriteLine("Blocks: {0}", wad.NandBlocks);
+                    Console.WriteLine("Title ID: {0}", wad.UpperTitleID);
+                    Console.WriteLine("IOS: {0}", ((int)wad.StartupIOS).ToString());
+                    Console.WriteLine("Region: {0}", wad.Region);
+                    Console.WriteLine("Version: {0}", wad.TitleVersion);
+                    Console.WriteLine("Blocks: {0}", wad.NandBlocks);
                 }
                 else
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.Write("Saving file...");
+                        Console.Write("Saving file...");
 
                     if (output.Substring(output.Length - 4, 4).ToUpper() != ".TXT")
                         output = output + ".txt";
@@ -191,17 +191,17 @@ namespace Sharpii
                     txt.Close();
                     
                     if (Quiet.quiet > 2)
-                        System.Console.Write("Done!\n");
+                        Console.Write("Done!\n");
 
                     if (Quiet.quiet > 1)
-                        System.Console.WriteLine("Operation completed succesfully!");
+                        Console.WriteLine("Operation completed succesfully!");
                 }
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
         }
@@ -225,13 +225,13 @@ namespace Sharpii
             if (edit == true)
                 if (File.Exists(input) == false)
                 {
-                    System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                    Console.WriteLine("ERROR: Unable to open file: {0}", input);
                     return;
                 }
             if (edit == false)
                 if (Directory.Exists(input) == false)
                 {
-                    System.Console.WriteLine("ERROR: Unable to open folder: {0}", input);
+                    Console.WriteLine("ERROR: Unable to open folder: {0}", input);
                     return;
                 }
 
@@ -251,7 +251,7 @@ namespace Sharpii
                         id = args[i + 1];
                         if (id.Length < 4)
                         {
-                            System.Console.WriteLine("ERROR: ID too short");
+                            Console.WriteLine("ERROR: ID too short");
                             return;
                         }
                         id = id.Substring(0, 4);
@@ -265,7 +265,7 @@ namespace Sharpii
                         lwrid = args[i + 1];
                         if (args[i + 1].ToUpper() != "CHANNEL" && args[i + 1].ToUpper() != "DLC" && args[i + 1].ToUpper() != "GAMECHANNEL" && args[i + 1].ToUpper() != "HIDDENCHANNELS" && args[i + 1].ToUpper() != "SYSTEMCHANNELS" && args[i + 1].ToUpper() != "SYSTEMTITLES")
                         {
-                            System.Console.WriteLine("ERROR: Unknown WAD type: {0}", args[i + 1]);
+                            Console.WriteLine("ERROR: Unknown WAD type: {0}", args[i + 1]);
                             return;
                         }
                         break;
@@ -357,18 +357,18 @@ namespace Sharpii
                 if (edit == true)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.Write("Loading file...");
+                        Console.Write("Loading file...");
                     wad.LoadFile(input);
                 }
                 else
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.Write("Loading folder...");
+                        Console.Write("Loading folder...");
                     wad.CreateNew(input);
                 }
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (sound != "" || banner != "" || icon != "" || app != "")
                 {
@@ -388,7 +388,7 @@ namespace Sharpii
                     if (sound != "")
                     {
                         if (Quiet.quiet > 2)
-                            System.Console.Write("Grabbing sound...");
+                            Console.Write("Grabbing sound...");
 
                         twad.LoadFile(sound);
                         twad.Unpack(temp + "\\sound");
@@ -399,12 +399,12 @@ namespace Sharpii
                         File.Copy(temp + "\\sound\\00000000\\meta\\sound.bin", temp + "\\main\\00000000\\meta\\sound.bin", true);
 
                         if (Quiet.quiet > 2)
-                            System.Console.Write("Done!\n");
+                            Console.Write("Done!\n");
                     }
                     if (banner != "")
                     {
                         if (Quiet.quiet > 2)
-                            System.Console.Write("Grabbing banner...");
+                            Console.Write("Grabbing banner...");
 
                         twad.LoadFile(banner);
                         twad.Unpack(temp + "\\banner");
@@ -415,12 +415,12 @@ namespace Sharpii
                         File.Copy(temp + "\\banner\\00000000\\meta\\banner.bin", temp + "\\main\\00000000\\meta\\banner.bin", true);
 
                         if (Quiet.quiet > 2)
-                            System.Console.Write("Done!\n");
+                            Console.Write("Done!\n");
                     }
                     if (icon != "")
                     {
                         if (Quiet.quiet > 2)
-                            System.Console.Write("Grabbing icon...");
+                            Console.Write("Grabbing icon...");
 
                         twad.LoadFile(icon);
                         twad.Unpack(temp + "\\icon");
@@ -431,12 +431,12 @@ namespace Sharpii
                         File.Copy(temp + "\\icon\\00000000\\meta\\icon.bin", temp + "\\main\\00000000\\meta\\icon.bin", true);
 
                         if (Quiet.quiet > 2)
-                            System.Console.Write("Done!\n");
+                            Console.Write("Done!\n");
                     }
                     if (app != "")
                     {
                         if (Quiet.quiet > 2)
-                            System.Console.Write("Grabbing dol...");
+                            Console.Write("Grabbing dol...");
 
                         if (app.Substring(app.Length - 4, 4) == ".dol")
                         {
@@ -452,7 +452,7 @@ namespace Sharpii
                         File.Copy(temp + "\\dol\\00000001.app", temp + "\\main\\00000001.app", true);
 
                         if (Quiet.quiet > 2)
-                            System.Console.Write("Done!\n");
+                            Console.Write("Done!\n");
                     }
                     u.ReplaceFile(1, temp + "\\main\\00000000\\meta\\banner.bin");
                     u.ReplaceFile(2, temp + "\\main\\00000000\\meta\\icon.bin");
@@ -464,18 +464,18 @@ namespace Sharpii
                 }
 
                 if (Quiet.quiet > 2 && fake == true)
-                    System.Console.WriteLine("FakeSigning WAD");
+                    Console.WriteLine("FakeSigning WAD");
                 wad.FakeSign = fake;
 
                 if (id != "")
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Changing channel ID to: {0}", id);
+                        Console.WriteLine("Changing channel ID to: {0}", id);
 
                     if (lwrid != "")
                     {
                         if (Quiet.quiet > 2)
-                            System.Console.WriteLine("Changing channel type to: {0}", lwrid);
+                            Console.WriteLine("Changing channel type to: {0}", lwrid);
                     }
                     else
                     {
@@ -498,18 +498,18 @@ namespace Sharpii
                 if (ios > -1)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Changing startup IOS to: {0}", ios);
+                        Console.WriteLine("Changing startup IOS to: {0}", ios);
                     wad.ChangeStartupIOS(ios);
                 }
                 if (title != "")
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Changing channel title to: {0}", title);
+                        Console.WriteLine("Changing channel title to: {0}", title);
                     wad.ChangeChannelTitles(title);
                 }
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Saving file...");
+                    Console.Write("Saving file...");
 
                 if (output.Substring(output.Length - 4, 4).ToUpper() != ".WAD")
                     output = output + ".wad";
@@ -517,16 +517,16 @@ namespace Sharpii
                 wad.Save(output);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 1)
-                    System.Console.WriteLine("Operation completed succesfully!");
+                    Console.WriteLine("Operation completed succesfully!");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
         }
@@ -541,7 +541,7 @@ namespace Sharpii
             //Check if file exists
             if (File.Exists(input) == false)
             {
-                System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                Console.WriteLine("ERROR: Unable to open file: {0}", input);
                 return;
             }
 
@@ -562,78 +562,78 @@ namespace Sharpii
                 WAD wad = new WAD();
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Loading file...");
+                    Console.Write("Loading file...");
 
                 wad.LoadFile(input);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Unpacking WAD...");
+                    Console.Write("Unpacking WAD...");
 
                 wad.Unpack(output, cid);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 1)
-                    System.Console.WriteLine("Operation completed succesfully!");
+                    Console.WriteLine("Operation completed succesfully!");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
         }
 
         public static void WAD_help()
         {
-            System.Console.WriteLine("");
-            System.Console.WriteLine("Sharpii {0} - WAD - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Usage:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       Sharpii.exe WAD [-p | -u | -e | -i] input output [arguments]");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Arguments:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       input          The input file/folder");
-            System.Console.WriteLine("       output         The output file/folder");
-            System.Console.WriteLine("       -p             Pack WAD");
-            System.Console.WriteLine("       -u             Unpack WAD");
-            System.Console.WriteLine("       -e             Edit WAD");
-            System.Console.WriteLine("       -i             Get WAD info");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("    Arguments for unpacking:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("         -cid           Use Content ID as name");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("    Arguments for info:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("         -o output      Output info to text file");
-            System.Console.WriteLine("         -titles        Display titles in all languages");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("    Arguments for packing/editing:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("         -id [TitleID]  Change the 4-character title id");
-            System.Console.WriteLine("         -ios [IOS]     Change the Startup IOS");
-            System.Console.WriteLine("         -title [title] Change the Channel name/title.");
-            System.Console.WriteLine("                        If there are spaces, surround in quotes");
-            System.Console.WriteLine("         -f             Fakesign the WAD");
-            System.Console.WriteLine("         -type [type]   Change the Channel type. Possible values are:");
-            System.Console.WriteLine("                        Channel, DLC, GameChannel, HiddenChannels,");
-            System.Console.WriteLine("                        SystemChannels, or SystemTitles");
-            System.Console.WriteLine("         -sound [wad]   Use the sound from 'wad'");
-            System.Console.WriteLine("         -banner [wad]  Use the banner from 'wad'");
-            System.Console.WriteLine("         -icon [wad]    Use the icon from 'wad'");
-            System.Console.WriteLine("         -dol [wad]     Use the dol from 'wad'");
-            System.Console.WriteLine("                        NOTE: you can also just enter the path to a");
-            System.Console.WriteLine("                        regular dol file, instead of a wad");
+            Console.WriteLine("");
+            Console.WriteLine("Sharpii {0} - WAD - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Usage:");
+            Console.WriteLine("");
+            Console.WriteLine("       Sharpii.exe WAD [-p | -u | -e | -i] input output [arguments]");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Arguments:");
+            Console.WriteLine("");
+            Console.WriteLine("       input          The input file/folder");
+            Console.WriteLine("       output         The output file/folder");
+            Console.WriteLine("       -p             Pack WAD");
+            Console.WriteLine("       -u             Unpack WAD");
+            Console.WriteLine("       -e             Edit WAD");
+            Console.WriteLine("       -i             Get WAD info");
+            Console.WriteLine("");
+            Console.WriteLine("    Arguments for unpacking:");
+            Console.WriteLine("");
+            Console.WriteLine("         -cid           Use Content ID as name");
+            Console.WriteLine("");
+            Console.WriteLine("    Arguments for info:");
+            Console.WriteLine("");
+            Console.WriteLine("         -o output      Output info to text file");
+            Console.WriteLine("         -titles        Display titles in all languages");
+            Console.WriteLine("");
+            Console.WriteLine("    Arguments for packing/editing:");
+            Console.WriteLine("");
+            Console.WriteLine("         -id [TitleID]  Change the 4-character title id");
+            Console.WriteLine("         -ios [IOS]     Change the Startup IOS");
+            Console.WriteLine("         -title [title] Change the Channel name/title.");
+            Console.WriteLine("                        If there are spaces, surround in quotes");
+            Console.WriteLine("         -f             Fakesign the WAD");
+            Console.WriteLine("         -type [type]   Change the Channel type. Possible values are:");
+            Console.WriteLine("                        Channel, DLC, GameChannel, HiddenChannels,");
+            Console.WriteLine("                        SystemChannels, or SystemTitles");
+            Console.WriteLine("         -sound [wad]   Use the sound from 'wad'");
+            Console.WriteLine("         -banner [wad]  Use the banner from 'wad'");
+            Console.WriteLine("         -icon [wad]    Use the icon from 'wad'");
+            Console.WriteLine("         -dol [wad]     Use the dol from 'wad'");
+            Console.WriteLine("                        NOTE: you can also just enter the path to a");
+            Console.WriteLine("                        regular dol file, instead of a wad");
         }
     }
 }

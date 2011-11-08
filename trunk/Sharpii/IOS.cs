@@ -42,7 +42,7 @@ namespace Sharpii
             //Check if file exists
             if (File.Exists(input) == false)
             {
-                System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                Console.WriteLine("ERROR: Unable to open file: {0}", input);
                 return;
             }
 
@@ -132,12 +132,12 @@ namespace Sharpii
                 ios.KeepOriginalFooter = true;
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Loading File...");
+                    Console.Write("Loading File...");
                 
                 ios.LoadFile(input);
                 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 //Check if WAD is an IOS
                 if ((ios.TitleID >> 32) != 1 || (ios.TitleID & 0xffffffff) > 255 || (ios.TitleID & 0xffffffff) < 3)
@@ -154,28 +154,28 @@ namespace Sharpii
                 if (fs == true)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Applying Fakesigning patch");
+                        Console.WriteLine("Applying Fakesigning patch");
                     patcher.PatchFakeSigning();
                 }
 
                 if (es == true)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Applying ES_Identify patch");
+                        Console.WriteLine("Applying ES_Identify patch");
                     patcher.PatchEsIdentify();
                 }
 
                 if (np == true)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Applying NAND permissions patch");
+                        Console.WriteLine("Applying NAND permissions patch");
                     patcher.PatchNandPermissions();
                 }
 
                 if (vp == true)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Applying Version patch");
+                        Console.WriteLine("Applying Version patch");
                     patcher.PatchVP();
                 }
 
@@ -185,14 +185,14 @@ namespace Sharpii
                 if (slot > -1)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Changing IOS slot to: {0}", slot);
+                        Console.WriteLine("Changing IOS slot to: {0}", slot);
                     ios.TitleID = (ulong)((1UL << 32) | (uint)slot);
                 }
 
                 if (version > -1)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Changing title version to: {0}", version);
+                        Console.WriteLine("Changing title version to: {0}", version);
                     ios.TitleVersion = (ushort)version;
                 }
 
@@ -200,13 +200,13 @@ namespace Sharpii
                 if (output != "")
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Saving to file: {0}", output);
+                        Console.WriteLine("Saving to file: {0}", output);
                     ios.Save(output);
                 }
                 else
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.Write("Saving file...");
+                        Console.Write("Saving file...");
 
                     if (output != "")
                     {
@@ -217,16 +217,16 @@ namespace Sharpii
                     ios.Save(input);
 
                     if (Quiet.quiet > 2)
-                        System.Console.Write("Done!\n");
+                        Console.Write("Done!\n");
                 }
                 if (Quiet.quiet > 1)
-                    System.Console.WriteLine("Operation completed succesfully!");
+                    Console.WriteLine("Operation completed succesfully!");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
 
@@ -236,26 +236,26 @@ namespace Sharpii
 
         public static void IOS_help()
         {
-            System.Console.WriteLine("");
-            System.Console.WriteLine("Sharpii {0} - IOS - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
-            System.Console.WriteLine("                    Code based off PatchIOS by leathl");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Usage:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       Sharpii.exe IOS input [-o output] [-fs] [-es] [-np] [-vp] [-s slot]");
-            System.Console.WriteLine("                             [-v version]");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Arguments:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       input          The input file");
-            System.Console.WriteLine("       -o output      The output file");
-            System.Console.WriteLine("       -fs            Patch Fakesigning");
-            System.Console.WriteLine("       -es            Patch ES_Identify");
-            System.Console.WriteLine("       -np            Patch NAND Permissions");
-            System.Console.WriteLine("       -vp            Add version patch");
-            System.Console.WriteLine("       -s #           Change IOS slot to #");
-            System.Console.WriteLine("       -v #           Change IOS version to #");
+            Console.WriteLine("");
+            Console.WriteLine("Sharpii {0} - IOS - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
+            Console.WriteLine("                    Code based off PatchIOS by leathl");
+            Console.WriteLine("");
+            Console.WriteLine("  Usage:");
+            Console.WriteLine("");
+            Console.WriteLine("       Sharpii.exe IOS input [-o output] [-fs] [-es] [-np] [-vp] [-s slot]");
+            Console.WriteLine("                             [-v version]");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Arguments:");
+            Console.WriteLine("");
+            Console.WriteLine("       input          The input file");
+            Console.WriteLine("       -o output      The output file");
+            Console.WriteLine("       -fs            Patch Fakesigning");
+            Console.WriteLine("       -es            Patch ES_Identify");
+            Console.WriteLine("       -np            Patch NAND Permissions");
+            Console.WriteLine("       -vp            Add version patch");
+            Console.WriteLine("       -s #           Change IOS slot to #");
+            Console.WriteLine("       -v #           Change IOS version to #");
         }
     }
 }

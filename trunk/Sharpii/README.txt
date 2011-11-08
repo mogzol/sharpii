@@ -1,5 +1,5 @@
 /------------------------------------------------------------------------------>
-                                  Sharpii 1.5
+                                  Sharpii 1.6
        <---------------------------------------------------------------->
                                An app by person66
                  libWiiSharp.dll by leathl (mod by scooby74029)                         
@@ -82,6 +82,22 @@ help with.
   found online. If you are sending a zip file instead of a dol, it wont be 
   compressed at all, no matter what.
 
+  If you do not wish to enter an IP every time you use SendDol, then you can add
+  the argument '-saveip' to the command. This will save the entered IP to the
+  environmental variable 'SharpiiIP', and then, in the future, if you do not enter 
+  an ip, Sharpii will use the one saved there instead. (Also applies to SendWad)
+
+ SendWad:
+/------------------>
+  Since version 1.6, Sharpii has supported AHBPROT for installing WADs. This means
+  that as long as you have HBC 1.0.7 or above, you will be able to install the WAD
+  without a patched IOS. To use this feature, enter '-ahb' instead of '-ios IOS'
+
+  If you do not wish to enter an IP every time you use SendDol, then you can add
+  the argument '-saveip' to the command. This will save the entered IP to the
+  environmental variable 'SharpiiIP', and then, in the future, if you do not enter 
+  an ip, Sharpii will use the one saved there instead. (Also applies to SendDol)
+
 
 /----SOURCE
 /------------------------------>
@@ -100,7 +116,8 @@ libWiiSharp can be found at: libwiisharp.googlecode.com
 
 SendWad uses CRAP's installer by WiiCrazy/I.R.on, with any edits that leathl
 may have made when adding it to CustomizeMii (which is where I got the source
-from)
+from). Since version 1.6, the AHBPROT code it uses is just mostly stolen from
+WiiMod by jskyboo.
 
 
 I would also like to thank XFlak and JoostinOnline for doing a bit of beta 
@@ -117,10 +134,16 @@ See "LICENSE.txt" for more information.
 /----CHANGELOG
 /------------------------------>
 
+1.6
+  - SendWad now supports AHBPROT (use '-ahb')
+  - IP can now be saved in an environmental variable (SharpiiIP)
+    for both SendWad and SendDol (manually or with '-saveip')
+  - Pointless aster eggs are fun!
+  - Code cleanup/bug fixes
 1.5
   - Added the ability to send WADs to the HBC using SendWad
   - You can now download an IOS with -ios # in NUSD
-  - Downloaded IOS wads are now namedlike so: IOS##-64-####.wad
+  - Downloaded IOS wads are now named like so: IOS##-64-####.wad
   - Under certain conditions, when downloading a wad with NUS,
     it will not be saved in a folder, just as the WAD (see ReadMe)
   - If missing dll's are detected (WadInstaller or libWiiSharp),

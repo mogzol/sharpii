@@ -46,7 +46,7 @@ namespace Sharpii
             }
 
             //If tuser gets here, they entered something wrong
-            System.Console.WriteLine("ERROR: The argument {0} is invalid", args[1]);
+            Console.WriteLine("ERROR: The argument {0} is invalid", args[1]);
             return;
 
         }
@@ -59,7 +59,7 @@ namespace Sharpii
             //Check if file exists
             if (File.Exists(input) == false)
             {
-                System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                Console.WriteLine("ERROR: Unable to open file: {0}", input);
                 return;
             }
 
@@ -68,30 +68,30 @@ namespace Sharpii
             {
                 //Load tpl
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Loading file...");
+                    Console.Write("Loading file...");
 
                 TPL tplfile = libWiiSharp.TPL.Load(input);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 //save image
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Extracting texture...");
+                    Console.Write("Extracting texture...");
 
                 tplfile.ExtractTexture(output);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 1)
-                    System.Console.WriteLine("Operation completed succesfully!");
+                    Console.WriteLine("Operation completed succesfully!");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
         }
@@ -106,7 +106,7 @@ namespace Sharpii
             //Check if file exists
             if (File.Exists(input) == false)
             {
-                System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                Console.WriteLine("ERROR: Unable to open file: {0}", input);
                 return;
             }
 
@@ -137,7 +137,7 @@ namespace Sharpii
             //Check if valid format was entered
             if (tplFormat != "I4" & tplFormat != "I8" & tplFormat != "IA4" & tplFormat != "IA8" & tplFormat != "RGB565" & tplFormat != "RGB5A3" & tplFormat != "RGBA8")
             {
-                System.Console.WriteLine("ERROR: Unknown format type: {0}", tplFormat);
+                Console.WriteLine("ERROR: Unknown format type: {0}", tplFormat);
                 return;
             }
 
@@ -163,20 +163,20 @@ namespace Sharpii
                     format = TPL_TextureFormat.RGBA8;
 
                 if (Quiet.quiet > 2)
-                    System.Console.WriteLine("Format set to: {0}", tplFormat);
+                    Console.WriteLine("Format set to: {0}", tplFormat);
 
                 //Make tpl
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Creating tpl file...");
+                    Console.Write("Creating tpl file...");
 
                 TPL tplfile = libWiiSharp.TPL.FromImage(input, format);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 //save
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Saving tpl file...");
+                    Console.Write("Saving tpl file...");
 
                 if (output.Substring(output.Length - 4, 4).ToUpper() != ".TPL")
                     output = output + ".tpl";
@@ -184,53 +184,53 @@ namespace Sharpii
                 tplfile.Save(output);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 1)
-                    System.Console.WriteLine("Operation completed succesfully!");
+                    Console.WriteLine("Operation completed succesfully!");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
         }
 
         public static void TPL_help()
         {
-            System.Console.WriteLine("");
-            System.Console.WriteLine("Sharpii {0} - TPL - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Usage:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       Sharpii.exe TPL [-to | -from] input output [arguments]");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Arguments:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       -to            Convert image to tpl");
-            System.Console.WriteLine("       -from          Create image from tpl");
-            System.Console.WriteLine("       input          The input file/folder");
-            System.Console.WriteLine("       output         The output file/folder");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("    Arguments for Converting to TPL:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("         -format | -f   The format of the tpl. Possible values are:");
-            System.Console.WriteLine("                          RGBA8     (High Quality with Alpha)");
-            System.Console.WriteLine("                          RGB565    (Medium Quality without Alpha)");
-            System.Console.WriteLine("                          RGB5A3    (Low Quality with Alpha)");
-            System.Console.WriteLine("                          IA8       (High quality B/W with Alpha)");
-            System.Console.WriteLine("                          IA4       (Low Quality B/W with Alpha)");
-            System.Console.WriteLine("                          I8        (High Quality B/W without Alpha)");
-            System.Console.WriteLine("                          I4        (Low Quality B/W without Alpha)");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Notes:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       If no format is specified when converting to TPL, RGB565 is used.");
-            System.Console.WriteLine("       When converting to an image, the image format is chosen based on the extension");
+            Console.WriteLine("");
+            Console.WriteLine("Sharpii {0} - TPL - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Usage:");
+            Console.WriteLine("");
+            Console.WriteLine("       Sharpii.exe TPL [-to | -from] input output [arguments]");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Arguments:");
+            Console.WriteLine("");
+            Console.WriteLine("       -to            Convert image to tpl");
+            Console.WriteLine("       -from          Create image from tpl");
+            Console.WriteLine("       input          The input file/folder");
+            Console.WriteLine("       output         The output file/folder");
+            Console.WriteLine("");
+            Console.WriteLine("    Arguments for Converting to TPL:");
+            Console.WriteLine("");
+            Console.WriteLine("         -format | -f   The format of the tpl. Possible values are:");
+            Console.WriteLine("                          RGBA8     (High Quality with Alpha)");
+            Console.WriteLine("                          RGB565    (Medium Quality without Alpha)");
+            Console.WriteLine("                          RGB5A3    (Low Quality with Alpha)");
+            Console.WriteLine("                          IA8       (High quality B/W with Alpha)");
+            Console.WriteLine("                          IA4       (Low Quality B/W with Alpha)");
+            Console.WriteLine("                          I8        (High Quality B/W without Alpha)");
+            Console.WriteLine("                          I4        (Low Quality B/W without Alpha)");
+            Console.WriteLine("");
+            Console.WriteLine("  Notes:");
+            Console.WriteLine("");
+            Console.WriteLine("       If no format is specified when converting to TPL, RGB565 is used.");
+            Console.WriteLine("       When converting to an image, the image format is chosen based on the extension");
         }
     }
 }

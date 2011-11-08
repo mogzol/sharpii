@@ -169,14 +169,14 @@ namespace Sharpii
             //Error checking & stuff
             if (id == "")
             {
-                System.Console.WriteLine("ERROR: No ID specified");
+                Console.WriteLine("ERROR: No ID specified");
                 return;
             }
 
             if (version == "")
             {
                 if (Quiet.quiet > 2)
-                    System.Console.WriteLine("No version specified, using latest", version);
+                    Console.WriteLine("No version specified, using latest", version);
                 version = "LATEST";
             }
 
@@ -188,14 +188,14 @@ namespace Sharpii
                 version = tmd.TitleVersion.ToString();
 
                 if (Quiet.quiet > 2)
-                    System.Console.WriteLine("Found latest version: v{0}", version);
+                    Console.WriteLine("Found latest version: v{0}", version);
             }
 
             if (entered == false) //Will only be false if no store type argument was given
             {
                 store.Add(StoreType.All);
                 if (Quiet.quiet > 2)
-                    System.Console.WriteLine("No store type specified, using all");
+                    Console.WriteLine("No store type specified, using all");
             }
 
             if (id.Length == 16 && Convert.ToInt32(id.Substring(14, 2), 16) >= 3 && Convert.ToInt32(id.Substring(14, 2), 16) <= 255 && id.Substring(0, 14) == "00000001000000")
@@ -215,7 +215,7 @@ namespace Sharpii
                 NoOut = true;
                 output = ios == "" ? id + "v" + version : ios.Substring(0, ios.Length - 4);
                 if (Quiet.quiet > 2)
-                    System.Console.WriteLine("No output specified, using {0}", output);
+                    Console.WriteLine("No output specified, using {0}", output);
             }
 
             //Main part, catches random/unexpected exceptions
@@ -226,7 +226,7 @@ namespace Sharpii
                 if (local == true)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Using local files if present...");
+                        Console.WriteLine("Using local files if present...");
                     nus.UseLocalFiles = true;
                 }
 
@@ -234,17 +234,17 @@ namespace Sharpii
                 if (content != "")
                 {
                     if (Quiet.quiet > 1)
-                        System.Console.Write("Downloading content...");
+                        Console.Write("Downloading content...");
 
                     nus.DownloadSingleContent(id, version, content, output);
 
                     if (Quiet.quiet > 1)
-                        System.Console.Write("Done!\n");
+                        Console.Write("Done!\n");
                 }
                 else
                 {
                     if (Quiet.quiet > 1)
-                        System.Console.Write("Downloading title...");
+                        Console.Write("Downloading title...");
                     
                     string realout = output;
                     if (wad == true)
@@ -255,17 +255,17 @@ namespace Sharpii
                     WadIosNamingStuff(wad, temp, id, version, ios, NoOut, output, realout);
 
                     if (Quiet.quiet > 1)
-                        System.Console.Write("Done!\n");
+                        Console.Write("Done!\n");
                 }
 
                 if (Quiet.quiet > 1)
-                    System.Console.WriteLine("Operation completed succesfully!");
+                    Console.WriteLine("Operation completed succesfully!");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
 
@@ -279,7 +279,7 @@ namespace Sharpii
             {
                 if (!File.Exists(temp + "\\" + id + "v" + version + ".wad"))
                 {
-                    System.Console.WriteLine("ERROR: Can't find WAD");
+                    Console.WriteLine("ERROR: Can't find WAD");
                     return;
                 }
                 if (ios != "" && NoOut == true)
@@ -318,36 +318,36 @@ namespace Sharpii
 
         public static void NUS_help()
         {
-            System.Console.WriteLine("");
-            System.Console.WriteLine("Sharpii {0} - NUSD - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Usage:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       Sharpii.exe NUSD [-id titleID | -ios IOS] [-v version] [-o otput] [-all]");
-            System.Console.WriteLine("                        [-wad] [-decrypt] [-encrypt] [-local] [-s content]");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Arguments:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       -id titleID    [required] The Title ID of the file you wish to download");
-            System.Console.WriteLine("       -v version     [required] The version of the file you wish to download");
-            System.Console.WriteLine("                      NOTE: Use 'latest' to get the latest version");
-            System.Console.WriteLine("       -ios IOS       The IOS you wish to download. This is an alternative to");
-            System.Console.WriteLine("                      '-id', use one or the other, but not both.");
-            System.Console.WriteLine("       -o output      Folder to output the files to");
-            System.Console.WriteLine("       -local         Use local files if present");
-            System.Console.WriteLine("       -s content     Download a single content from the file");
-            System.Console.WriteLine("                      NOTE: When using this, output MUST have a path and a");
-            System.Console.WriteLine("                      filename. For current directory use '.\\[filename]'");
-            System.Console.WriteLine("       -all           Create and keep encrypted, decrypted, and WAD versions");
-            System.Console.WriteLine("                      of the file you wish to download");
-            System.Console.WriteLine("       -wad           Keep only the WAD version of the file you wish to");
-            System.Console.WriteLine("                      download");
-            System.Console.WriteLine("       -decrypt       Keep only the decrypted contents of the file you wish to");
-            System.Console.WriteLine("                      download");
-            System.Console.WriteLine("       -encrypt       Keep only the encrypted contents of the file you wish to");
-            System.Console.WriteLine("                      download");
+            Console.WriteLine("");
+            Console.WriteLine("Sharpii {0} - NUSD - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Usage:");
+            Console.WriteLine("");
+            Console.WriteLine("       Sharpii.exe NUSD [-id titleID | -ios IOS] [-v version] [-o otput] [-all]");
+            Console.WriteLine("                        [-wad] [-decrypt] [-encrypt] [-local] [-s content]");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Arguments:");
+            Console.WriteLine("");
+            Console.WriteLine("       -id titleID    [required] The Title ID of the file you wish to download");
+            Console.WriteLine("       -v version     [required] The version of the file you wish to download");
+            Console.WriteLine("                      NOTE: Use 'latest' to get the latest version");
+            Console.WriteLine("       -ios IOS       The IOS you wish to download. This is an alternative to");
+            Console.WriteLine("                      '-id', use one or the other, but not both.");
+            Console.WriteLine("       -o output      Folder to output the files to");
+            Console.WriteLine("       -local         Use local files if present");
+            Console.WriteLine("       -s content     Download a single content from the file");
+            Console.WriteLine("                      NOTE: When using this, output MUST have a path and a");
+            Console.WriteLine("                      filename. For current directory use '.\\[filename]'");
+            Console.WriteLine("       -all           Create and keep encrypted, decrypted, and WAD versions");
+            Console.WriteLine("                      of the file you wish to download");
+            Console.WriteLine("       -wad           Keep only the WAD version of the file you wish to");
+            Console.WriteLine("                      download");
+            Console.WriteLine("       -decrypt       Keep only the decrypted contents of the file you wish to");
+            Console.WriteLine("                      download");
+            Console.WriteLine("       -encrypt       Keep only the encrypted contents of the file you wish to");
+            Console.WriteLine("                      download");
         }
     }
 }

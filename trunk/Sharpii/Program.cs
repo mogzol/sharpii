@@ -34,9 +34,9 @@ namespace Sharpii
 
             if (!File.Exists("libWiiSharp.dll"))
             {
-                System.Console.WriteLine("ERROR: libWiiSharp.dll not found");
-                System.Console.WriteLine("\n\nAttemp to download? [Y/N]");
-                System.Console.Write("\n>>");
+                Console.WriteLine("ERROR: libWiiSharp.dll not found");
+                Console.WriteLine("\n\nAttemp to download? [Y/N]");
+                Console.Write("\n>>");
                 string ans = Console.ReadLine();
                 if (ans.ToUpper() == "Y")
                 {
@@ -48,7 +48,7 @@ namespace Sharpii
                         Console.Write("Done!\n");
                     }
                     catch (Exception ex)
-                    { System.Console.WriteLine("An error occured: {0}", ex.Message); Environment.Exit(0); }
+                    { Console.WriteLine("An error occured: {0}", ex.Message); Environment.Exit(0); }
                 }
                 else
                     Environment.Exit(0);
@@ -70,61 +70,68 @@ namespace Sharpii
                 }
             }
 
-            string Function = args[0];
+            string Function = args[0].ToUpper();
             bool gotSomewhere = false;
 
-            if (Function.ToUpper() == "-H" || Function.ToUpper() == "-HELP" || Function.ToUpper() == "H" || Function.ToUpper() == "HELP")
+            if (Function == "-H" || Function == "-HELP" || Function == "H" || Function == "HELP")
             {
                 help();
                 gotSomewhere = true;
             }
 
-            if (Function.ToUpper() == "BNS")
+            if (Function == "BNS")
             {
                 BNS_Stuff.BNS(args);
                 gotSomewhere = true;
             }
 
-            if (Function.ToUpper() == "WAD")
+            if (Function == "WAD")
             {
                 WAD_Stuff.WAD(args);
                 gotSomewhere = true;
             }
 
-            if (Function.ToUpper() == "TPL")
+            if (Function == "TPL")
             {
                 TPL_Stuff.TPL(args);
                 gotSomewhere = true;
             }
 
-            if (Function.ToUpper() == "U8")
+            if (Function == "U8")
             {
                 U8_Stuff.U8(args);
                 gotSomewhere = true;
             }
 
-            if (Function.ToUpper() == "IOS")
+            if (Function == "IOS")
             {
                 IOS_Stuff.IOS(args);
                 gotSomewhere = true;
             }
 
-            if (Function.ToUpper() == "NUS" || Function.ToUpper() == "NUSD")
+            if (Function == "NUS" || Function == "NUSD")
             {
                 NUS_Stuff.NUS(args);
                 gotSomewhere = true;
             }
 
-            if (Function.ToUpper() == "SENDDOL" || Function.ToUpper() == "SENDOL")
+            if (Function == "SENDDOL" || Function == "SENDOL")
             {
                 HBC_Stuff.SendDol(args);
                 gotSomewhere = true;
             }
 
-            if (Function.ToUpper() == "SENDWAD")
+            if (Function == "SENDWAD")
             {
                 bool cont = HBC_Stuff.SendWad_Check(args);
                 if (cont == true) HBC_Stuff.SendWad(args);
+                gotSomewhere = true;
+            }
+
+            if (Function == "WHICH CAME FIRST" || Function == "WHICH CAME FIRST?" || 
+            (Function == "WHICH" && args[1].ToUpper() == "CAME" && args[2].Substring(0,5).ToUpper() == "FIRST"))
+            {
+                InconspicuousNotEasterEggThingamajig();
                 gotSomewhere = true;
             }
 
@@ -133,7 +140,7 @@ namespace Sharpii
             if (gotSomewhere == false)
             {
                 //If tuser gets here, they entered something wrong
-                System.Console.WriteLine("ERROR: The argument {0} is invalid", args[0]);
+                Console.WriteLine("ERROR: The argument {0} is invalid", args[0]);
             }
 
             string temp = Path.GetTempPath() + "Sharpii.tmp";
@@ -143,37 +150,58 @@ namespace Sharpii
             Environment.Exit(0);
         }
 
+        private static void InconspicuousNotEasterEggThingamajig()
+        {
+            WebClient egg = new WebClient(); string all = "";
+            try { all = egg.DownloadString("http://sites.google.com/site/person66files/home/EASTEREGG.txt"); }
+            catch (Exception) { Console.WriteLine("\n Easter eggs are more fun if you has internetz"); return; }
+            int width = Console.WindowWidth; int height = Console.WindowHeight; int bwidth = Console.BufferWidth; int bheight = Console.BufferHeight;
+            ConsoleKeyInfo key; Console.Clear(); Console.CursorVisible = false; Console.SetWindowSize(75, 5); Console.SetBufferSize(75, 5);
+            Console.WriteLine("Complete the following: \n\n   UP, __ , __ , __ , __ , __ , __ , __ , __ , __ , START"); key = Console.ReadKey(true);
+            if (key.Key.ToString() == "UpArrow") { Console.SetCursorPosition(7, 2); Console.Write("UP"); } else { goto ByeBye; }
+            key = Console.ReadKey(true); if (key.Key.ToString() == "DownArrow") { Console.SetCursorPosition(12, 2); Console.Write("DOWN , __ , __ , __ , __ , __ , __ , __ , START"); } else { goto ByeBye; }
+            key = Console.ReadKey(true); if (key.Key.ToString() == "DownArrow") { Console.SetCursorPosition(19, 2); Console.Write("DOWN , __ , __ , __ , __ , __ , __ , START"); } else { goto ByeBye; }
+            key = Console.ReadKey(true); if (key.Key.ToString() == "LeftArrow") { Console.SetCursorPosition(26, 2); Console.Write("LEFT , __ , __ , __ , __ , __ , START"); } else { goto ByeBye; }
+            key = Console.ReadKey(true); if (key.Key.ToString() == "RightArrow") { Console.SetCursorPosition(33, 2); Console.Write("RIGHT , __ , __ , __ , __ , START"); } else { goto ByeBye; }
+            key = Console.ReadKey(true); if (key.Key.ToString() == "LeftArrow") { Console.SetCursorPosition(41, 2); Console.Write("LEFT , __ , __ , __ , START"); } else { goto ByeBye; }
+            key = Console.ReadKey(true); if (key.Key.ToString() == "RightArrow") { Console.SetCursorPosition(48, 2); Console.Write("RIGHT , __ , __ , START"); } else { goto ByeBye; }
+            key = Console.ReadKey(true); if (key.Key.ToString() == "B") { Console.SetCursorPosition(56, 2); Console.Write("B , __ , START   "); } else { goto ByeBye; }
+            key = Console.ReadKey(true); if (key.Key.ToString() == "A") { Console.SetCursorPosition(60, 2); Console.Write("A , START   "); } else { goto ByeBye; }
+            Console.SetBufferSize(95, 44); Console.SetWindowSize(95, 44); Console.SetCursorPosition(0, 0); Console.Clear(); Console.Write(all); Console.ReadKey(true);
+            ByeBye: Console.Clear(); Console.CursorVisible = true; Console.SetWindowSize(width, height); Console.SetBufferSize(bwidth, bheight); Environment.Exit(0);                
+        }
+
         private static void help()
         {
-            System.Console.WriteLine("");
-            System.Console.WriteLine("Sharpii {0} - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Usage:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       Sharpii [function] [parameters] [-quiet | -q | -lots]");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Functions:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       BNS            Convert a wav to bns, or vice versa");
-            System.Console.WriteLine("       WAD            Pack/Unpack/Edit a wad file");
-            System.Console.WriteLine("       TPL            Convert a image to a tpl, or vice versa");
-            System.Console.WriteLine("       U8             Pack/Unpack a U8 archive");
-            System.Console.WriteLine("       IOS            Apply various patches to an IOS");
-            System.Console.WriteLine("       NUSD           Download files from NUS");
-            System.Console.WriteLine("       SendDol        Send a dol to the HBC over wifi");
-            System.Console.WriteLine("       SendWad        Send a wad to the HBC over wifi");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       NOTE: Too see more detailed descriptions of any of the above,");
-            System.Console.WriteLine("             use 'Sharpii [function] -h'");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Global Arguments:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       -quiet | -q    Try not to display any output");
-            System.Console.WriteLine("       -lots          Display lots of output");
-            System.Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Sharpii {0} - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Usage:");
+            Console.WriteLine("");
+            Console.WriteLine("       Sharpii [function] [parameters] [-quiet | -q | -lots]");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Functions:");
+            Console.WriteLine("");
+            Console.WriteLine("       BNS            Convert a wav to bns, or vice versa");
+            Console.WriteLine("       WAD            Pack/Unpack/Edit a wad file");
+            Console.WriteLine("       TPL            Convert a image to a tpl, or vice versa");
+            Console.WriteLine("       U8             Pack/Unpack a U8 archive");
+            Console.WriteLine("       IOS            Apply various patches to an IOS");
+            Console.WriteLine("       NUSD           Download files from NUS");
+            Console.WriteLine("       SendDol        Send a dol to the HBC over wifi");
+            Console.WriteLine("       SendWad        Send a wad to the HBC over wifi");
+            Console.WriteLine("");
+            Console.WriteLine("       NOTE: Too see more detailed descriptions of any of the above,");
+            Console.WriteLine("             use 'Sharpii [function] -h'");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Global Arguments:");
+            Console.WriteLine("");
+            Console.WriteLine("       -quiet | -q    Try not to display any output");
+            Console.WriteLine("       -lots          Display lots of output");
+            Console.WriteLine("");
 
 
         }
@@ -213,5 +241,5 @@ namespace Sharpii
     }
     public class Version
     {
-        public static string version = "1.5";
+        public static string version = "1.6";
     }

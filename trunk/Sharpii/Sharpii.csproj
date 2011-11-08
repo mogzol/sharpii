@@ -91,8 +91,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LICENSE.txt" />
-    <Content Include="README.txt" />
+    <None Include="LICENSE.txt" />
+    <None Include="README.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WadInstaller\WadInstaller.csproj">

@@ -55,7 +55,7 @@ namespace Sharpii
             //Check if file exists
             if (File.Exists(input) == false)
             {
-                System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                Console.WriteLine("ERROR: Unable to open file: {0}", input);
                 return;
             }
 
@@ -64,15 +64,15 @@ namespace Sharpii
             {
                 //Now convert it
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Loading file...");
+                    Console.Write("Loading file...");
 
                 Wave WavFile = libWiiSharp.BNS.BnsToWave(input);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Saving wav...");
+                    Console.Write("Saving wav...");
 
                 if (output.Substring(output.Length - 4, 4).ToUpper() != ".WAV")
                     output = output + ".wav";
@@ -80,16 +80,16 @@ namespace Sharpii
                 WavFile.Save(output);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 1)
-                    System.Console.WriteLine("Operation completed succesfully!");
+                    Console.WriteLine("Operation completed succesfully!");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
         }
@@ -104,7 +104,7 @@ namespace Sharpii
             //Check if file exists
             if (File.Exists(input) == false)
             {
-                System.Console.WriteLine("ERROR: Unable to open file: {0}", input);
+                Console.WriteLine("ERROR: Unable to open file: {0}", input);
                 return;
             }
 
@@ -131,28 +131,28 @@ namespace Sharpii
             try
             {
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Loading file...");
+                    Console.Write("Loading file...");
 
                 BNS WavFile = new BNS(input);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (loop == true)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Applying loop");
+                        Console.WriteLine("Applying loop");
                     WavFile.SetLoop(1);
                 }
                 if (mono == true)
                 {
                     if (Quiet.quiet > 2)
-                        System.Console.WriteLine("Converting to mono");
+                        Console.WriteLine("Converting to mono");
                     WavFile.StereoToMono = true;
                 }
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Saving BNS...");
+                    Console.Write("Saving BNS...");
 
                 WavFile.Convert();
 
@@ -162,42 +162,42 @@ namespace Sharpii
                 WavFile.Save(output);
 
                 if (Quiet.quiet > 2)
-                    System.Console.Write("Done!\n");
+                    Console.Write("Done!\n");
 
                 if (Quiet.quiet > 1)
-                    System.Console.WriteLine("Operation completed succesfully!");
+                    Console.WriteLine("Operation completed succesfully!");
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("An unknown error occured, please try again");
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
+                Console.WriteLine("An unknown error occured, please try again");
+                Console.WriteLine("");
+                Console.WriteLine("ERROR DETAILS: {0}", ex.Message);
                 return;
             }
         }
 
         public static void Wav2BNS_help()
         {
-            System.Console.WriteLine("");
-            System.Console.WriteLine("Sharpii {0} - BNS - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Usage:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       Sharpii BNS [-to | -from] input.wav output.bns [-l/-loop] [-m/-mono]");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("  Arguments:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("       -to            Convert wav to bns");
-            System.Console.WriteLine("       -from          Create wav from bns");
-            System.Console.WriteLine("       input.wav      The input wave sound file");
-            System.Console.WriteLine("       output.bns     The output BNS sound file");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("    Arguments for converting to BNS:");
-            System.Console.WriteLine("");
-            System.Console.WriteLine("         -l | -loop     Creates a looping BNS");
-            System.Console.WriteLine("         -m | -mono     Convert stereo sound to mono BNS");
+            Console.WriteLine("");
+            Console.WriteLine("Sharpii {0} - BNS - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Usage:");
+            Console.WriteLine("");
+            Console.WriteLine("       Sharpii BNS [-to | -from] input.wav output.bns [-l/-loop] [-m/-mono]");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("  Arguments:");
+            Console.WriteLine("");
+            Console.WriteLine("       -to            Convert wav to bns");
+            Console.WriteLine("       -from          Create wav from bns");
+            Console.WriteLine("       input.wav      The input wave sound file");
+            Console.WriteLine("       output.bns     The output BNS sound file");
+            Console.WriteLine("");
+            Console.WriteLine("    Arguments for converting to BNS:");
+            Console.WriteLine("");
+            Console.WriteLine("         -l | -loop     Creates a looping BNS");
+            Console.WriteLine("         -m | -mono     Convert stereo sound to mono BNS");
         }
     }
 }
