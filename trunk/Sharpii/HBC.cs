@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Net;
 using libWiiSharp;
+using System.Windows.Forms;
 
 namespace Sharpii
 {
@@ -42,6 +43,7 @@ namespace Sharpii
             string arguments = "";
             bool compress = true;
             bool saveip = false;
+            bool noip = true;
 
             //Get parameters
             for (int i = 1; i < args.Length; i++)
@@ -55,6 +57,7 @@ namespace Sharpii
                             return;
                         }
                         ip = args[i + 1];
+                        noip = false;
                         break;
                     case "-SAVEIP":
                         saveip = true;
@@ -98,15 +101,20 @@ namespace Sharpii
                 {
                     if (Quiet.quiet > 2)
                         Console.WriteLine("Saving IP");
-                    Environment.SetEnvironmentVariable("SharpiiIP", ip, EnvironmentVariableTarget.User);
+                    Environment.SetEnvironmentVariable("SharpiiIP", ip, EnvironmentVariableTarget.Machine);
                 }
 
                 if (ip == "")
-                {
-                    if (Quiet.quiet > 2)
-                        Console.WriteLine("No IP set, using {0}", Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.User));
                     ip = Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.User);
+                if (ip == "")
+                    ip = Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.Machine);
+                if (ip == "")
+                {
+                    Console.WriteLine("ERROR: No IP set");
+                    return;
                 }
+                if (noip = true && Quiet.quiet > 2)
+                    Console.WriteLine("No IP set, using {0}", ip);
                 
                 libWiiSharp.Protocol proto = Protocol.JODI;
 
@@ -166,7 +174,7 @@ namespace Sharpii
                 return false;
             }
 
-            if (!File.Exists("WadInstaller.dll"))
+            if (!File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\WadInstaller.dll"))
             {
                 Console.WriteLine("ERROR: WadInstaller.dll not found");
                 Console.WriteLine("\n\nAttemp to download? [Y/N]");
@@ -178,7 +186,7 @@ namespace Sharpii
                     {
                         Console.Write("\nGrabbing WadInstaller.dll...");
                         WebClient DLwadInstaller = new WebClient();
-                        DLwadInstaller.DownloadFile("http://sharpii.googlecode.com/files/WadInstaller.dll", "WadInstaller.dll");
+                        DLwadInstaller.DownloadFile("http://sharpii.googlecode.com/files/WadInstaller.dll", Path.GetDirectoryName(Application.ExecutablePath) + "\\WadInstaller.dll");
                         Console.Write("Done!\n");
                     }
                     catch (Exception ex)
@@ -199,6 +207,7 @@ namespace Sharpii
             string protocol = "JODI";
             bool ahb = false;
             bool saveip = false;
+            bool noip = true;
 
             //Get parameters
             for (int i = 1; i < args.Length; i++)
@@ -228,6 +237,7 @@ namespace Sharpii
                             return;
                         }
                         ip = args[i + 1];
+                        noip = false;
                         break;
                     case "-SAVEIP":
                         saveip = true;
@@ -259,7 +269,7 @@ namespace Sharpii
                 {
                     if (Quiet.quiet > 2)
                         Console.WriteLine("Saving IP");
-                    Environment.SetEnvironmentVariable("SharpiiIP", ip, EnvironmentVariableTarget.User);
+                    Environment.SetEnvironmentVariable("SharpiiIP", ip, EnvironmentVariableTarget.Machine);
                 }
 
                 if (ahb == true || ios == "")
@@ -270,11 +280,16 @@ namespace Sharpii
                 }
 
                 if (ip == "")
-                {
-                    if (Quiet.quiet > 2)
-                        Console.WriteLine("No IP set, using {0}", Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.User));
                     ip = Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.User);
+                if (ip == "")
+                    ip = Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.Machine);
+                if (ip == "")
+                {
+                    Console.WriteLine("ERROR: No IP set");
+                    return;
                 }
+                if (noip = true && Quiet.quiet > 2)
+                    Console.WriteLine("No IP set, using {0}", ip);
 
                 libWiiSharp.Protocol proto = Protocol.JODI;
 

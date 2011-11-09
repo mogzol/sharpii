@@ -19,6 +19,8 @@ using System;
 using System.IO;
 using System.Net;
 using libWiiSharp;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Sharpii
 {
@@ -32,7 +34,7 @@ namespace Sharpii
                 Environment.Exit(0);
             }
 
-            if (!File.Exists("libWiiSharp.dll"))
+            if (!File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\libWiiSharp.dll"))
             {
                 Console.WriteLine("ERROR: libWiiSharp.dll not found");
                 Console.WriteLine("\n\nAttemp to download? [Y/N]");
@@ -44,7 +46,7 @@ namespace Sharpii
                     {
                         Console.Write("\nGrabbing libWiiSharp.dll...");
                         WebClient DLwadInstaller = new WebClient();
-                        DLwadInstaller.DownloadFile("http://sharpii.googlecode.com/svn/trunk/Sharpii/libWiiSharp.dll", "libWiiSharp.dll");
+                        DLwadInstaller.DownloadFile("http://sharpii.googlecode.com/svn/trunk/Sharpii/libWiiSharp.dll", Path.GetDirectoryName(Application.ExecutablePath) + "\\libWiiSharp.dll");
                         Console.Write("Done!\n");
                     }
                     catch (Exception ex)
@@ -128,6 +130,18 @@ namespace Sharpii
                 gotSomewhere = true;
             }
 
+            if (Function == "INSTALL")
+            {
+                Install();
+                gotSomewhere = true;
+            }
+
+            if (Function == "UNINSTALL")
+            {
+                Uninstall();
+                gotSomewhere = true;
+            }
+
             if (Function == "WHICH CAME FIRST" || Function == "WHICH CAME FIRST?" || 
             (Function == "WHICH" && args[1].ToUpper() == "CAME" && args[2].Substring(0,5).ToUpper() == "FIRST"))
             {
@@ -148,6 +162,65 @@ namespace Sharpii
                 DeleteDir.DeleteDirectory(temp);
 
             Environment.Exit(0);
+        }
+
+        private static void Install()
+        {
+            try
+            {
+                if (Quiet.quiet > 1)
+                    Console.WriteLine("Installing Sharpii...");
+                if (Quiet.quiet > 1)
+                    Console.WriteLine("Adding Variables");
+                Environment.SetEnvironmentVariable("PATH", Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine) +
+                ";" + Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Sharpii\\", EnvironmentVariableTarget.Machine);
+
+                if (Quiet.quiet > 1)
+                    Console.WriteLine("Creating Directory");
+                if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Sharpii\\"))
+                    DeleteDir.DeleteDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Sharpii\\");
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Sharpii\\");
+
+                if (Quiet.quiet > 1)
+                    Console.WriteLine("Copying Files");
+                File.Copy(Application.ExecutablePath, Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Sharpii\\Sharpii.exe");
+                if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\libWiiSharp.dll"))
+                    File.Copy(Path.GetDirectoryName(Application.ExecutablePath) + "\\libWiiSharp.dll", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Sharpii\\libWiiSharp.dll");
+                if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\WadInstaller.dll"))
+                    File.Copy(Path.GetDirectoryName(Application.ExecutablePath) + "\\WadInstaller.dll", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Sharpii\\WadInstaller.dll");
+
+                if (Quiet.quiet > 1)
+                {
+                    Console.WriteLine("Sharpii was successfully installed to: {0}", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Sharpii\\");
+                    Console.WriteLine("You can now use Sharpii in any directory!");
+                    Console.WriteLine("\nNOTE: You may need to restart your computer for this to take effect");
+                }
+                return;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An unknown error occured, please try again\n\nERROR DETAILS: {0}", ex.Message);
+                return;
+            }
+        }
+
+        private static void Uninstall()
+        {
+            try
+            {
+                if (Quiet.quiet > 1)
+                    Console.WriteLine("Uninstalling Sharpii...");
+                string path = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Machine);
+                Environment.SetEnvironmentVariable("PATH", path.Replace(";" + Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Sharpii\\", ""), EnvironmentVariableTarget.Machine);
+                Process.Start("cmd.exe", "/C mode con:cols=50 lines=4 & color 0B & echo Finishing Uninstallation... & sleep 2 & rmdir /s /q " + '"' + 
+                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Sharpii\\" + '"' + " & CLS & echo Sharpii has been successfully uninstalled! & echo. & pause");
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An unknown error occured, please try again\n\nERROR DETAILS: {0}", ex.Message);
+                return;
+            }
         }
 
         private static void InconspicuousNotEasterEggThingamajig()
@@ -197,6 +270,13 @@ namespace Sharpii
             Console.WriteLine("             use 'Sharpii [function] -h'");
             Console.WriteLine("");
             Console.WriteLine("");
+            Console.WriteLine("  Other Functions:");
+            Console.WriteLine("");
+            Console.WriteLine("       Install        Install Sharpii to your computer so you can run it");
+            Console.WriteLine("                      from anywhere without needing the exe");
+            Console.WriteLine("       Uninstall      Uninstall Sharpii from your computer");
+            Console.WriteLine("");
+            Console.WriteLine("");
             Console.WriteLine("  Global Arguments:");
             Console.WriteLine("");
             Console.WriteLine("       -quiet | -q    Try not to display any output");
@@ -241,5 +321,5 @@ namespace Sharpii
     }
     public class Version
     {
-        public static string version = "1.6";
+        public static string version = "1.7";
     }

@@ -1,5 +1,5 @@
 /------------------------------------------------------------------------------>
-                                  Sharpii 1.6
+                                  Sharpii 1.7
        <---------------------------------------------------------------->
                                An app by person66
                  libWiiSharp.dll by leathl (mod by scooby74029)                         
@@ -99,6 +99,17 @@ help with.
   an ip, Sharpii will use the one saved there instead. (Also applies to SendDol)
 
 
+/----Installing Sharpii
+/------------------------------>
+
+Since version 1.7, you have been able to install Sharpii. This allows you to run
+Sharpii from anywhere without needing the exe in that directory. To install Sharpii,
+just use the command 'Sharpii install'. This will copy Sharpii to your My Programs
+directory, and create an environmental variable. To remove it, just use the command
+'Sharpii uninstall' which will remove the environmental variable, then delete Sharpii
+from My Programs.
+
+
 /----SOURCE
 /------------------------------>
 
@@ -121,7 +132,7 @@ WiiMod by jskyboo.
 
 
 I would also like to thank XFlak and JoostinOnline for doing a bit of beta 
-testing for me. Thanks!
+testing for me (and giving me many ideas). Thanks!
 
 
 /----LICENSE
@@ -134,6 +145,11 @@ See "LICENSE.txt" for more information.
 /----CHANGELOG
 /------------------------------>
 
+1.7
+  - Sharpii can now be installed for use without the exe
+  - SharpiiIP is now a system variable, not a user one.
+  - Sharpii now looks for DLLs in the same directory as the exe
+  - Bug fixes
 1.6
   - SendWad now supports AHBPROT (use '-ahb')
   - IP can now be saved in an environmental variable (SharpiiIP)
