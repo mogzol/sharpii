@@ -238,7 +238,7 @@ namespace Sharpii
         {
             Console.WriteLine("");
             Console.WriteLine("Sharpii {0} - IOS - A tool by person66, using libWiiSharp.dll by leathl", Version.version);
-            Console.WriteLine("                    Code based off PatchIOS by leathl");
+            Console.WriteLine("                      Code based off PatchIOS by leathl");
             Console.WriteLine("");
             Console.WriteLine("  Usage:");
             Console.WriteLine("");

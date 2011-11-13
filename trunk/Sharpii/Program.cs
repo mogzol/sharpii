@@ -321,5 +321,5 @@ namespace Sharpii
     }
     public class Version
     {
-        public static string version = "1.7";
+        public static string version = "1.7.1";
     }

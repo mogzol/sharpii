@@ -1,5 +1,5 @@
 /------------------------------------------------------------------------------>
-                                  Sharpii 1.7
+                                 Sharpii 1.7.1
        <---------------------------------------------------------------->
                                An app by person66
                  libWiiSharp.dll by leathl (mod by scooby74029)                         
@@ -145,6 +145,9 @@ See "LICENSE.txt" for more information.
 /----CHANGELOG
 /------------------------------>
 
+1.7.1
+  - Fixed a bug that prevented Sharpii from checking for SharpiiIP
+    in the system variables
 1.7
   - Sharpii can now be installed for use without the exe
   - SharpiiIP is now a system variable, not a user one.

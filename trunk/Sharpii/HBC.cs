@@ -104,16 +104,16 @@ namespace Sharpii
                     Environment.SetEnvironmentVariable("SharpiiIP", ip, EnvironmentVariableTarget.Machine);
                 }
 
-                if (ip == "")
+                if (String.IsNullOrEmpty(ip))
                     ip = Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.User);
-                if (ip == "")
+                if (String.IsNullOrEmpty(ip))
                     ip = Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.Machine);
-                if (ip == "")
+                if (String.IsNullOrEmpty(ip))
                 {
                     Console.WriteLine("ERROR: No IP set");
                     return;
                 }
-                if (noip = true && Quiet.quiet > 2)
+                if (noip == true && Quiet.quiet > 2)
                     Console.WriteLine("No IP set, using {0}", ip);
                 
                 libWiiSharp.Protocol proto = Protocol.JODI;
@@ -279,16 +279,16 @@ namespace Sharpii
                     ios = "0";
                 }
 
-                if (ip == "")
+                if (String.IsNullOrEmpty(ip))
                     ip = Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.User);
-                if (ip == "")
+                if (String.IsNullOrEmpty(ip))
                     ip = Environment.GetEnvironmentVariable("SharpiiIP", EnvironmentVariableTarget.Machine);
-                if (ip == "")
+                if (String.IsNullOrEmpty(ip))
                 {
                     Console.WriteLine("ERROR: No IP set");
                     return;
                 }
-                if (noip = true && Quiet.quiet > 2)
+                if (noip == true && Quiet.quiet > 2)
                     Console.WriteLine("No IP set, using {0}", ip);
 
                 libWiiSharp.Protocol proto = Protocol.JODI;
@@ -357,7 +357,7 @@ namespace Sharpii
         {
             Console.WriteLine("");
             Console.WriteLine("Sharpii {0} - SendWad - A tool by person66, using libWiiSharp.dll by leathl,", Version.version);
-            Console.WriteLine("                        and CRAP's installer by WiiCrazy/I.R.on");
+            Console.WriteLine("                          and CRAP's installer by WiiCrazy/I.R.on");
             Console.WriteLine("");
             Console.WriteLine("  Usage:");
             Console.WriteLine("");
