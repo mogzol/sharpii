@@ -1,5 +1,5 @@
 ﻿/* This file is part of Sharpii.
- * Copyright (C) 2011 Person66
+ * Copyright (C) 2013 Person66
  *
  * Sharpii is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -153,6 +153,7 @@ namespace Sharpii
                         Console.WriteLine("   Korean: {0}\n", wad.ChannelTitles[7]);
                     }
                     Console.WriteLine("Title ID: {0}", wad.UpperTitleID);
+                    Console.WriteLine("Full Title ID: {0}", wad.TitleID.ToString("X16").Substring(0, 8) + "-" + wad.TitleID.ToString("X16").Substring(8));
                     Console.WriteLine("IOS: {0}", ((int)wad.StartupIOS).ToString());
                     Console.WriteLine("Region: {0}", wad.Region);
                     Console.WriteLine("Version: {0}", wad.TitleVersion);
@@ -184,6 +185,7 @@ namespace Sharpii
                         txt.WriteLine("     Korean: {0}", wad.ChannelTitles[7]);
                     }
                     txt.WriteLine("Title ID: {0}", wad.UpperTitleID);
+                    txt.WriteLine("Full Title ID: {0}", wad.TitleID.ToString("X16").Substring(0, 8) + "-" + wad.TitleID.ToString("X16").Substring(8));
                     txt.WriteLine("IOS: {0}", ((int)wad.StartupIOS).ToString());
                     txt.WriteLine("Region: {0}", wad.Region);
                     txt.WriteLine("Version: {0}", wad.TitleVersion);
@@ -262,8 +264,8 @@ namespace Sharpii
                             Console.WriteLine("ERROR: No type set");
                             return;
                         }
-                        lwrid = args[i + 1];
-                        if (args[i + 1].ToUpper() != "CHANNEL" && args[i + 1].ToUpper() != "DLC" && args[i + 1].ToUpper() != "GAMECHANNEL" && args[i + 1].ToUpper() != "HIDDENCHANNELS" && args[i + 1].ToUpper() != "SYSTEMCHANNELS" && args[i + 1].ToUpper() != "SYSTEMTITLES")
+                        lwrid = args[i + 1].ToUpper();
+                        if (lwrid != "CHANNEL" && lwrid != "DLC" && lwrid != "GAMECHANNEL" && lwrid != "HIDDENCHANNELS" && lwrid != "SYSTEMCHANNELS" && lwrid != "SYSTEMTITLES")
                         {
                             Console.WriteLine("ERROR: Unknown WAD type: {0}", args[i + 1]);
                             return;
@@ -467,10 +469,17 @@ namespace Sharpii
                     Console.WriteLine("FakeSigning WAD");
                 wad.FakeSign = fake;
 
-                if (id != "")
+                if (id != "" || lwrid != "")
                 {
-                    if (Quiet.quiet > 2)
-                        Console.WriteLine("Changing channel ID to: {0}", id);
+                    if (id != "")
+                    {
+                        if (Quiet.quiet > 2)
+                            Console.WriteLine("Changing channel ID to: {0}", id);
+                    }
+                    else
+                    {
+                        id = wad.UpperTitleID;
+                    }
 
                     if (lwrid != "")
                     {
@@ -484,15 +493,15 @@ namespace Sharpii
 
                     if (lwrid == "CHANNEL")
                         wad.ChangeTitleID(LowerTitleID.Channel, id);
-                    if (lwrid == "DLC")
+                    else if (lwrid == "DLC")
                         wad.ChangeTitleID(LowerTitleID.DLC, id);
-                    if (lwrid == "GAMECHANNEL")
+                    else if (lwrid == "GAMECHANNEL")
                         wad.ChangeTitleID(LowerTitleID.GameChannel, id);
-                    if (lwrid == "HIDDENCHANNELS")
+                    else if (lwrid == "HIDDENCHANNELS")
                         wad.ChangeTitleID(LowerTitleID.HiddenChannels, id);
-                    if (lwrid == "SYSTEMCHANNELS")
+                    else if (lwrid == "SYSTEMCHANNELS")
                         wad.ChangeTitleID(LowerTitleID.SystemChannels, id);
-                    if (lwrid == "SYSTEMTITLES")
+                    else if (lwrid == "SYSTEMTITLES")
                         wad.ChangeTitleID(LowerTitleID.SystemTitles, id);
                 }
                 if (ios > -1)
@@ -615,7 +624,7 @@ namespace Sharpii
             Console.WriteLine("");
             Console.WriteLine("    Arguments for info:");
             Console.WriteLine("");
-            Console.WriteLine("         -o output      Output info to text file");
+            Console.WriteLine("         -o [output]    Output info to text file");
             Console.WriteLine("         -titles        Display titles in all languages");
             Console.WriteLine("");
             Console.WriteLine("    Arguments for packing/editing:");

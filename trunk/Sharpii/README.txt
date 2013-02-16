@@ -1,5 +1,5 @@
 /------------------------------------------------------------------------------>
-                                 Sharpii 1.7.1
+                                 Sharpii 1.7.2
        <---------------------------------------------------------------->
                                An app by person66
                  libWiiSharp.dll by leathl (mod by scooby74029)                         
@@ -145,6 +145,10 @@ See "LICENSE.txt" for more information.
 /----CHANGELOG
 /------------------------------>
 
+1.7.2
+  - I am not dead! Yay!
+  - Fixed a bug that would prevent you from changing a wad type
+  - Wad info now also displays the full, 16-character Title ID
 1.7.1
   - Fixed a bug that prevented Sharpii from checking for SharpiiIP
     in the system variables
@@ -157,7 +161,7 @@ See "LICENSE.txt" for more information.
   - SendWad now supports AHBPROT (use '-ahb')
   - IP can now be saved in an environmental variable (SharpiiIP)
     for both SendWad and SendDol (manually or with '-saveip')
-  - Pointless aster eggs are fun!
+  - Pointless easter eggs are fun!
   - Code cleanup/bug fixes
 1.5
   - Added the ability to send WADs to the HBC using SendWad

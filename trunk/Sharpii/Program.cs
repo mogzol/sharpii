@@ -1,5 +1,5 @@
 ﻿/* This file is part of Sharpii.
- * Copyright (C) 2011 Person66
+ * Copyright (C) 2013 Person66
  *
  * Sharpii is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -321,5 +321,5 @@ namespace Sharpii
     }
     public class Version
     {
-        public static string version = "1.7.1";
+        public static string version = "1.7.2";
     }
