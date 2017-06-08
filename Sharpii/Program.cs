@@ -34,7 +34,7 @@ namespace Sharpii
                 Environment.Exit(0);
             }
 
-            if (!File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\libWiiSharp.dll"))
+            if (!File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar + "libWiiSharp.dll"))
             {
                 Console.WriteLine("ERROR: libWiiSharp.dll not found");
                 Console.WriteLine("\n\nAttemp to download? [Y/N]");
